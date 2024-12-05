@@ -1,0 +1,509 @@
+$integration: http://ibm.com/appconnect/integration/v2/integrationFile
+integration:
+  type: trigger-action
+  trigger-interfaces:
+    trigger-interface-1:
+      connector-type: streaming-connector-scheduler
+      type: event-trigger
+      triggers:
+        SCHEDULE:
+          input-context:
+            data: scheduler
+          assembly:
+            $ref: "#/integration/assemblies/assembly-1"
+          options:
+            subscription:
+              scheduleConfiguration:
+                calendar:
+                  cronExp: 00 00 1 * *
+                  runOnceOncheck: true
+                  timeZone: UTC
+                  every: month
+      account-name: Account 2
+  action-interfaces:
+    action-interface-1:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: TurbonomicAuth
+      actions:
+        INVOKE: {}
+    action-interface-3:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: Turbonomic
+      actions:
+        INVOKE: {}
+    action-interface-4:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: Turbonomic
+      actions:
+        INVOKE: {}
+    action-interface-5:
+      type: api-action
+      business-object: object
+      connector-type: amazons3
+      account-name: Account 1
+      actions:
+        CREATE: {}
+  assemblies:
+    assembly-1:
+      assembly:
+        execute:
+          - set-variable:
+              name: Set variable
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      config:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                          customer:
+                            type: string
+                      version:
+                        type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - version:
+                            template: 1.0.1
+          - custom-action:
+              name: HTTP Invoke method
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-1"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Content-Type:
+                        type: string
+                mappings:
+                  - continue2xx:
+                      expression: "false"
+                  - method:
+                      template: POST
+                  - requestHeaders:
+                      mappings:
+                        - Content-Type:
+                            template: application/x-www-form-urlencoded
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/login"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - set-variable:
+              name: Set variable 2
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                      locationsFilename:
+                        type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - Cookie:
+                            template: "{{$join($map($HTTPInvokemethod.responseHeaders.'set-cookie',function\
+                              ($el){    $el~>$substringBefore(\";\")}),\";
+                              \")}}"
+                        - locationsFilename:
+                            template: '{{"TURBO_"& $Setvariable.variable.config.customer & "_"
+                              &"Locations_"&$millis() }}.csv'
+          - custom-action:
+              name: HTTP Invoke method 2
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-3"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                mappings:
+                  - method:
+                      template: GET
+                  - requestHeaders:
+                      mappings:
+                        - Cookie:
+                            template: "{{$Setvariable2.variable.Cookie}}"
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/search?detail_type=aspec\
+                        ts&types=Region"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - custom-action:
+              name: HTTP Invoke method 3
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-4"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                mappings:
+                  - method:
+                      template: GET
+                  - requestHeaders:
+                      mappings:
+                        - Cookie:
+                            template: "{{$Setvariable2.variable.Cookie}}"
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/search?types=DataCenter"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - parse:
+              name: JSON Parser Parse
+              parse-format: json
+              source:
+                template: "{{$HTTPInvokemethod2.responseBody}}"
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod2
+                    $ref: "#/node-output/HTTP Invoke method 2/response/payload"
+                  - variable: HTTPInvokemethod2Metadata
+                    $ref: "#/node-output/HTTP Invoke method 2/response"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              sample-data: |2-
+                    [{
+                      "uuid": "12345678901234",
+                      "displayName": "Sample Display Name",
+                      "className": "Region",
+                      "environmentType": "CLOUD",
+                      "state": "ACTIVE",
+                      "aspects": {
+                        "regionAspect": {
+                          "latitude": 123.456,
+                          "longitude": 123.456
+                        }
+                      }
+                    }]
+              output-schema:
+                $schema: http://json-schema.org/draft-04/schema#
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                    displayName:
+                      type: string
+                    className:
+                      type: string
+                    environmentType:
+                      type: string
+                    state:
+                      type: string
+                    aspects:
+                      type: object
+                      properties:
+                        regionAspect:
+                          type: object
+                          properties:
+                            latitude:
+                              type: number
+                            longitude:
+                              type: number
+                title: Parsed JSON
+          - parse:
+              name: JSON Parser Parse 2
+              parse-format: json
+              source:
+                template: "{{$HTTPInvokemethod3.responseBody}}"
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod2
+                    $ref: "#/node-output/HTTP Invoke method 2/response/payload"
+                  - variable: HTTPInvokemethod2Metadata
+                    $ref: "#/node-output/HTTP Invoke method 2/response"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse
+                    $ref: "#/node-output/JSON Parser Parse/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              sample-data: |-
+                    [{
+                      "uuid": "12345678901234",
+                      "displayName": "Sample Display Name",
+                      "className": "DataCenter",
+                      "environmentType": "ONPREM",
+                            "tags": {
+                        
+                        "Country": [
+                            "India"
+                        ],
+                        "Latitude": [
+                            "0"
+                        ],
+                        "Longitude": [
+                            "0"
+                        ],
+                        "EnviziAlternateName": [
+                            "Alternate Sample Name"
+                        ]
+                    },
+                      "state": "ACTIVE"
+                    }]
+              output-schema:
+                $schema: http://json-schema.org/draft-04/schema#
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                    displayName:
+                      type: string
+                    className:
+                      type: string
+                    environmentType:
+                      type: string
+                    tags:
+                      type: object
+                      properties:
+                        Country:
+                          type: array
+                          items:
+                            type: string
+                        Latitude:
+                          type: array
+                          items:
+                            type: string
+                        Longitude:
+                          type: array
+                          items:
+                            type: string
+                        EnviziAlternateName:
+                          type: array
+                          items:
+                            type: string
+                    state:
+                      type: string
+                title: Parsed JSON
+          - set-variable:
+              name: Set variable 3
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      locationsCSV:
+                        type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: JSONParserParse
+                    $ref: "#/node-output/JSON Parser Parse/response/payload"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - locationsCSV:
+                            format:
+                              type: csv
+                              options:
+                                includeHeaders: true
+                                headerOrder:
+                                  - GROUPNAME1
+                                  - GROUPNAME2
+                                  - GROUPNAME3
+                                  - LOCATION
+                                  - LOCATIONID
+                                  - DESCRIPTION
+                                  - STREETADDRESS
+                                  - CITY
+                                  - STATEPROVINCE
+                                  - POSTALCODE
+                                  - COUNTRY
+                                  - LATITUDEY
+                                  - LONGITUDEX
+                                  - LOCATIONCLOSEDATE
+                                eol: LF
+                                alwaysQuotes: false
+                            foreach:
+                              input: "$append($JSONParserParse,$JSONParserParse2) "
+                              iterator: locationsCSVItem
+                              mappings:
+                                - COUNTRY:
+                                    template: "{{$locationsCSVItem.tags.Country[0]}}"
+                                - GROUPNAME2:
+                                    template: Turbonomic
+                                - GROUPNAME3:
+                                    template: '{{$locationsCSVItem.environmentType & "-" &
+                                      $locationsCSVItem.className}}'
+                                - LATITUDEY:
+                                    template: "{{$locationsCSVItem.aspects.regionAspect.latitude ?
+                                      $locationsCSVItem.aspects.regionAspect.la\
+                                      titude :
+                                      $locationsCSVItem.tags.Latitude[0]}}"
+                                - LOCATION:
+                                    template: "{{$locationsCSVItem.tags.EnviziAlternateName[0] ?
+                                      $locationsCSVItem.tags.EnviziAlternateNam\
+                                      e[0] : $locationsCSVItem.displayName}}"
+                                - LOCATIONID:
+                                    template: "{{$locationsCSVItem.uuid}}"
+                                - LONGITUDEX:
+                                    template: "{{$locationsCSVItem.aspects.regionAspect.longitude ?
+                                      $locationsCSVItem.aspects.regionAspect.lo\
+                                      ngitude :
+                                      $locationsCSVItem.tags.Longitude[0]}}"
+                stringFormatSchemas:
+                  properties.`variable`.properties.`locationsCSV`:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            GROUPNAME1:
+                              type: string
+                            GROUPNAME2:
+                              type: string
+                            GROUPNAME3:
+                              type: string
+                            LOCATION:
+                              type: string
+                            LOCATIONID:
+                              type: string
+                            DESCRIPTION:
+                              type: string
+                            STREETADDRESS:
+                              type: string
+                            CITY:
+                              type: string
+                            STATEPROVINCE:
+                              type: string
+                            POSTALCODE:
+                              type: string
+                            COUNTRY:
+                              type: string
+                            LATITUDEY:
+                              type: string
+                            LONGITUDEX:
+                              type: string
+                            LOCATIONCLOSEDATE:
+                              type: string
+                        title: Items
+          - create-action:
+              name: Amazon S3 Create object
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-5"
+              map:
+                mappings:
+                  - ContentType:
+                      template: text/plain
+                  - Key:
+                      template: "{{$Setvariable.variable.config.customer}}/generic/unprocessed/{{$Set\
+                        variable2.variable.locationsFilename}}"
+                  - bucketName:
+                      template: envizi-appconnect
+                  - content:
+                      template: "{{$Setvariable3.variable.locationsCSV}}"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: JSONParserParse
+                    $ref: "#/node-output/JSON Parser Parse/response/payload"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: Setvariable3
+                    $ref: "#/node-output/Set variable 3/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+  name: TurbonomicLocations_v1_0_1
+models: {}

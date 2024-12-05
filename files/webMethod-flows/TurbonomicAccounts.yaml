@@ -1,0 +1,1186 @@
+$integration: http://ibm.com/appconnect/integration/v2/integrationFile
+integration:
+  type: trigger-action
+  trigger-interfaces:
+    trigger-interface-1:
+      connector-type: streaming-connector-scheduler
+      type: event-trigger
+      triggers:
+        SCHEDULE:
+          input-context:
+            data: scheduler
+          assembly:
+            $ref: "#/integration/assemblies/assembly-1"
+          options:
+            subscription:
+              scheduleConfiguration:
+                calendar:
+                  cronExp: 15 00 * * *
+                  runOnceOncheck: true
+                  timeZone: UTC
+                  every: day
+      account-name: Account 2
+  action-interfaces:
+    action-interface-1:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: TurbonomicAuth
+      actions:
+        INVOKE: {}
+    action-interface-4:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: Turbonomic
+      actions:
+        INVOKE: {}
+    action-interface-3:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: Turbonomic
+      actions:
+        INVOKE: {}
+    action-interface-6:
+      type: api-action
+      business-object: request
+      connector-type: http
+      account-name: Turbonomic
+      actions:
+        INVOKE: {}
+    action-interface-2:
+      type: api-action
+      business-object: object
+      connector-type: amazons3
+      account-name: Account 1
+      actions:
+        CREATE: {}
+  assemblies:
+    assembly-1:
+      assembly:
+        execute:
+          - set-variable:
+              name: Set variable
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      config:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                          customer:
+                            type: string
+                          OverrideStartDate:
+                            type: string
+                          OverrideEndDate:
+                            type: string
+                      version:
+                        type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - version:
+                            template: 1.0.1
+          - if:
+              name: If
+              input:
+                - variable: Trigger
+                  $ref: "#/trigger/payload"
+                - variable: Setvariable
+                  $ref: "#/node-output/Set variable/response/payload"
+                - variable: flowDetails
+                  $ref: "#/flowDetails"
+              branch:
+                - condition:
+                    and:
+                      - "{{$Setvariable.variable.config.OverrideStartDate}}":
+                          neq: ""
+                      - "{{$Setvariable.variable.config.OverrideEndDate}}":
+                          neq: ""
+                      - "{{$toMillis($Setvariable.variable.config.OverrideStartDate)}}":
+                          gt: "0"
+                      - "{{$toMillis($Setvariable.variable.config.OverrideEndDate)}}":
+                          gt: "0"
+                  execute: []
+                  map:
+                    mappings:
+                      - endDate:
+                          template: "{{$Setvariable.variable.config.OverrideEndDate}}"
+                      - isOnDemand:
+                          expression: "true"
+                      - startDate:
+                          template: "{{$Setvariable.variable.config.OverrideStartDate}}"
+                    $map: http://ibm.com/appconnect/map/v1
+                    input:
+                      - variable: Trigger
+                        $ref: "#/trigger/payload"
+                      - variable: Setvariable
+                        $ref: "#/node-output/Set variable/response/payload"
+                      - variable: flowDetails
+                        $ref: "#/flowDetails"
+              else:
+                execute: []
+                map:
+                  mappings:
+                    - endDate:
+                        template: "{{$fromMillis($toMillis($Trigger.currentEventTime)-86400000,'[Y0001]\
+                          -[M01]-[D01]')&\"T23:59:00Z\"}}"
+                    - isOnDemand:
+                        expression: "false"
+                    - startDate:
+                        template: "{{$fromMillis($toMillis($Trigger.currentEventTime)-86400000,'[Y0001]\
+                          -[M01]-[D01]')&\"T00:00:00Z\"}}"
+                  $map: http://ibm.com/appconnect/map/v1
+                  input:
+                    - variable: Trigger
+                      $ref: "#/trigger/payload"
+                    - variable: Setvariable
+                      $ref: "#/node-output/Set variable/response/payload"
+                    - variable: flowDetails
+                      $ref: "#/flowDetails"
+              output-schema:
+                type: object
+                properties:
+                  isOnDemand:
+                    type: boolean
+                  startDate:
+                    type: string
+                  endDate:
+                    type: string
+                required:
+                  - isOnDemand
+                  - startDate
+                  - endDate
+          - custom-action:
+              name: HTTP Invoke method
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-1"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Content-Type:
+                        type: string
+                mappings:
+                  - continue2xx:
+                      expression: "false"
+                  - method:
+                      template: POST
+                  - requestHeaders:
+                      mappings:
+                        - Content-Type:
+                            template: application/x-www-form-urlencoded
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/login"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - set-variable:
+              name: Set variable 2
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                      accountsFilename:
+                        type: string
+                      startDate:
+                        type: string
+                      endDate:
+                        type: string
+                      dates:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            startDate:
+                              type: string
+                            endDate:
+                              type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - Cookie:
+                            template: "{{$join($map($HTTPInvokemethod.responseHeaders.'set-cookie',function\
+                              ($el){    $el~>$substringBefore(\";\")}),\";
+                              \")}}"
+                        - accountsFilename:
+                            template: '{{"TURBO_"& $Setvariable.variable.config.customer & "_"
+                              &"Accounts_"&$millis() }}.csv'
+                        - dates:
+                            foreach:
+                              mappings:
+                                - endDate:
+                                    template: "{{$datesItem.endDate}}"
+                                - startDate:
+                                    template: "{{$datesItem.startDate}}"
+                              input: "(  $inputStartDateMillis:=
+                                $toMillis($If.startDate);  $inputEndDateMillis:=
+                                $toMillis($If.endDate);  $startDateMillis:=
+                                $inputStartDateMillis - $inputStartDateMillis %
+                                86400000;  $endDateMillis:= $inputEndDateMillis
+                                - $inputEndDateMillis % 86400000;  $numDays:=
+                                ($endDateMillis - $startDateMillis) /
+                                86400000;  $days:= [0..$numDays];  $dates:=
+                                $map($days, function ($d, $i)
+                                {    {      \"startDate\":
+                                $fromMillis($startDateMillis + ($d *
+                                86400000)),        \"endDate\":
+                                $fromMillis($startDateMillis + ($d * 86400000),
+                                '[Y0001]-[M01]-[D01]') &
+                                \"T23:59:59Z\"    }  });)"
+                              iterator: datesItem
+                        - endDate:
+                            template: "{{$fromMillis($toMillis($Trigger.currentEventTime)-86400000,'[Y0001]\
+                              -[M01]-[D01]')&\"T23:59:59Z\"}}"
+                        - startDate:
+                            template: "{{$fromMillis($toMillis($Trigger.currentEventTime)-86400000,'[Y0001]\
+                              -[M01]-[D01]')&\"T00:00:00Z\"}}"
+          - custom-action:
+              name: HTTP Invoke method 3
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-4"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                mappings:
+                  - method:
+                      template: GET
+                  - requestHeaders:
+                      mappings:
+                        - Cookie:
+                            template: "{{$Setvariable2.variable.Cookie}}"
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/search?types=DataCenter"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - parse:
+              name: JSON Parser Parse 2
+              parse-format: json
+              source:
+                template: "{{$HTTPInvokemethod3.responseBody}}"
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              sample-data: |-
+                    [{
+                      "uuid": "12345678901234",
+                      "displayName": "Sample Display Name",
+                      "className": "DataCenter",
+                      "environmentType": "ONPREM",
+                            "tags": {
+                        
+                        "Country": [
+                            "India"
+                        ],
+                        "Latitude": [
+                            "0"
+                        ],
+                        "Longitude": [
+                            "0"
+                        ],
+                        "EnviziAlternateName": [
+                            "Alternate Sample Name"
+                        ]
+                    },
+                      "state": "ACTIVE"
+                    }]
+              output-schema:
+                $schema: http://json-schema.org/draft-04/schema#
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                    displayName:
+                      type: string
+                    className:
+                      type: string
+                    environmentType:
+                      type: string
+                    tags:
+                      type: object
+                      properties:
+                        Country:
+                          type: array
+                          items:
+                            type: string
+                        Latitude:
+                          type: array
+                          items:
+                            type: string
+                        Longitude:
+                          type: array
+                          items:
+                            type: string
+                        EnviziAlternateName:
+                          type: array
+                          items:
+                            type: string
+                    state:
+                      type: string
+                title: Parsed JSON
+          - for-each:
+              name: For each 2
+              assembly:
+                $ref: "#/integration/assemblies/assembly-3"
+              source:
+                expression: "$Setvariable2.variable.dates "
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              mode: sequential
+              continue-on-error: true
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`output`:
+                    type: object
+                    properties:
+                      accountsData:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                input:
+                  - variable: Foreach2item
+                    $ref: "#/block/For each 2/current-item"
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Foreach
+                    $ref: "#/block/For each 2/node-output/For each/response/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - output:
+                      mappings:
+                        - accountsData:
+                            expression: $Foreach.output.*[$string(value)]
+              display-name: date
+          - set-variable:
+              name: Set variable 3
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`variable`:
+                    type: object
+                    properties:
+                      accountsCSV:
+                        type: string
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: Foreach2
+                    $ref: "#/node-output/For each 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - variable:
+                      mappings:
+                        - accountsCSV:
+                            format:
+                              type: csv
+                              options:
+                                includeHeaders: true
+                                headerOrder:
+                                  - CUSTOMER
+                                  - LOCATION
+                                  - LOCATIONID
+                                  - METERNAME
+                                  - QUANTITY
+                                  - MEASUREUNITID
+                                  - READINGDATE
+                                  - RECORDSTARTDATE
+                                  - RECORDENDDATE
+                                  - ACCOUNT
+                                  - DATATYPE
+                                eol: LF
+                                alwaysQuotes: false
+                            foreach:
+                              input: $Foreach2.output.*
+                              iterator: accountsCSVItem
+                              mappings:
+                                - ACCOUNT:
+                                    template: '{{$accountsCSVItem.location & "_" & $accountsCSVItem.parameter}}'
+                                - CUSTOMER:
+                                    template: "{{$Setvariable.variable.config.customer}}"
+                                - DATATYPE:
+                                    template: "{{$accountsCSVItem.parameter}}"
+                                - LOCATION:
+                                    template: "{{$accountsCSVItem.location}}"
+                                - LOCATIONID:
+                                    template: "{{$accountsCSVItem.uuid}}"
+                                - MEASUREUNITID:
+                                    template: "{{$accountsCSVItem.unit}}"
+                                - METERNAME:
+                                    template: "{{$accountsCSVItem.parameter}}"
+                                - QUANTITY:
+                                    template: "{{$accountsCSVItem.value}}"
+                                - READINGDATE:
+                                    template: "{{$accountsCSVItem.date}}"
+                stringFormatSchemas:
+                  properties.`variable`.properties.`accountsCSV`:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            CUSTOMER:
+                              type: string
+                            LOCATION:
+                              type: string
+                            LOCATIONID:
+                              type: string
+                            METERNAME:
+                              type: string
+                            QUANTITY:
+                              type: string
+                            MEASUREUNITID:
+                              type: string
+                            READINGDATE:
+                              type: string
+                            RECORDSTARTDATE:
+                              type: string
+                            RECORDENDDATE:
+                              type: string
+                            ACCOUNT:
+                              type: string
+                            DATATYPE:
+                              type: string
+                        title: Items
+          - create-action:
+              name: Amazon S3 Create object
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-2"
+              map:
+                mappings:
+                  - ContentType:
+                      template: text/plain
+                  - Key:
+                      template: "{{$Setvariable.variable.config.customer}}/generic/unprocessed/{{$Set\
+                        variable2.variable.accountsFilename}}"
+                  - bucketName:
+                      template: envizi-appconnect
+                  - content:
+                      template: "{{$Setvariable3.variable.accountsCSV}}"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: Foreach2
+                    $ref: "#/node-output/For each 2/response/payload"
+                  - variable: Setvariable3
+                    $ref: "#/node-output/Set variable 3/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+    assembly-2:
+      assembly:
+        execute:
+          - if:
+              name: If 2
+              input:
+                - variable: Foreachitem
+                  $ref: "#/block/For each/current-item"
+                - variable: Foreach2item
+                  $ref: "#/block/For each 2/current-item"
+                - variable: Trigger
+                  $ref: "#/trigger/payload"
+                - variable: Setvariable
+                  $ref: "#/node-output/Set variable/response/payload"
+                - variable: If
+                  $ref: "#/node-output/If/response/payload"
+                - variable: HTTPInvokemethod
+                  $ref: "#/node-output/HTTP Invoke method/response/payload"
+                - variable: HTTPInvokemethodMetadata
+                  $ref: "#/node-output/HTTP Invoke method/response"
+                - variable: Setvariable2
+                  $ref: "#/node-output/Set variable 2/response/payload"
+                - variable: HTTPInvokemethod3
+                  $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                - variable: HTTPInvokemethod3Metadata
+                  $ref: "#/node-output/HTTP Invoke method 3/response"
+                - variable: JSONParserParse2
+                  $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                - variable: flowDetails
+                  $ref: "#/flowDetails"
+              branch:
+                - condition:
+                    "{{$If.isOnDemand}}":
+                      =: "false"
+                  execute:
+                    - custom-action:
+                        name: HTTP Invoke method 2
+                        target:
+                          $ref: "#/integration/action-interfaces/action-interface-3"
+                        action: INVOKE
+                        map:
+                          customSchemas:
+                            properties.`requestHeaders`:
+                              type: object
+                              properties:
+                                Cookie:
+                                  type: string
+                          mappings:
+                            - method:
+                                template: GET
+                            - requestHeaders:
+                                mappings:
+                                  - Cookie:
+                                      template: "{{$Setvariable2.variable.Cookie}}"
+                            - url:
+                                template: "{{$Setvariable.variable.config.url}}/api/v3/supplychains?environment\
+                                  _type=ONPREM&uuids={{$Foreachitem.uuid}}"
+                          $map: http://ibm.com/appconnect/map/v1
+                          input:
+                            - variable: Foreachitem
+                              $ref: "#/block/For each/current-item"
+                            - variable: Foreach2item
+                              $ref: "#/block/For each 2/current-item"
+                            - variable: Trigger
+                              $ref: "#/trigger/payload"
+                            - variable: Setvariable
+                              $ref: "#/node-output/Set variable/response/payload"
+                            - variable: If
+                              $ref: "#/node-output/If/response/payload"
+                            - variable: Setvariable2
+                              $ref: "#/node-output/Set variable 2/response/payload"
+                            - variable: JSONParserParse2
+                              $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                            - variable: flowDetails
+                              $ref: "#/flowDetails"
+                    - parse:
+                        name: JSON Parser Parse
+                        parse-format: json
+                        source:
+                          template: "{{$HTTPInvokemethod2.responseBody}}"
+                          input:
+                            - variable: Foreachitem
+                              $ref: "#/block/For each/current-item"
+                            - variable: Foreach2item
+                              $ref: "#/block/For each 2/current-item"
+                            - variable: Trigger
+                              $ref: "#/trigger/payload"
+                            - variable: HTTPInvokemethod2
+                              $ref: "#/block/If 2/node-output/HTTP Invoke method 2/response/payload"
+                            - variable: HTTPInvokemethod2Metadata
+                              $ref: "#/block/If 2/node-output/HTTP Invoke method 2/response"
+                            - variable: Setvariable
+                              $ref: "#/node-output/Set variable/response/payload"
+                            - variable: If
+                              $ref: "#/node-output/If/response/payload"
+                            - variable: HTTPInvokemethod
+                              $ref: "#/node-output/HTTP Invoke method/response/payload"
+                            - variable: HTTPInvokemethodMetadata
+                              $ref: "#/node-output/HTTP Invoke method/response"
+                            - variable: Setvariable2
+                              $ref: "#/node-output/Set variable 2/response/payload"
+                            - variable: HTTPInvokemethod3
+                              $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                            - variable: HTTPInvokemethod3Metadata
+                              $ref: "#/node-output/HTTP Invoke method 3/response"
+                            - variable: JSONParserParse2
+                              $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                            - variable: flowDetails
+                              $ref: "#/flowDetails"
+                        sample-data: |-
+                          {
+                              "seMap": {
+                                  "PhysicalMachine": {
+                                      "entitiesCount": 11,
+                                      "stateSummary": {
+                                          "ACTIVE": 11
+                                      }
+                                  },
+                                  "VirtualMachine": {
+                                      "entitiesCount": 522,
+                                      "stateSummary": {
+                                          "ACTIVE": 271,
+                                          "IDLE": 251
+                                      }
+                                  }
+                              }
+                          }
+                        output-schema:
+                          $schema: http://json-schema.org/draft-04/schema#
+                          type: object
+                          properties:
+                            seMap:
+                              type: object
+                              properties:
+                                PhysicalMachine:
+                                  type: object
+                                  properties:
+                                    entitiesCount:
+                                      type: number
+                                    stateSummary:
+                                      type: object
+                                      properties:
+                                        ACTIVE:
+                                          type: number
+                                VirtualMachine:
+                                  type: object
+                                  properties:
+                                    entitiesCount:
+                                      type: number
+                                    stateSummary:
+                                      type: object
+                                      properties:
+                                        ACTIVE:
+                                          type: number
+                                        IDLE:
+                                          type: number
+                          title: Parsed JSON
+                  map:
+                    mappings:
+                      - supplychainOutput:
+                          expression: "$JSONParserParse "
+                    $map: http://ibm.com/appconnect/map/v1
+                    input:
+                      - variable: Foreachitem
+                        $ref: "#/block/For each/current-item"
+                      - variable: Foreach2item
+                        $ref: "#/block/For each 2/current-item"
+                      - variable: Trigger
+                        $ref: "#/trigger/payload"
+                      - variable: HTTPInvokemethod2
+                        $ref: "#/block/If 2/node-output/HTTP Invoke method 2/response/payload"
+                      - variable: HTTPInvokemethod2Metadata
+                        $ref: "#/block/If 2/node-output/HTTP Invoke method 2/response"
+                      - variable: JSONParserParse
+                        $ref: "#/block/If 2/node-output/JSON Parser Parse/response/payload"
+                      - variable: Setvariable
+                        $ref: "#/node-output/Set variable/response/payload"
+                      - variable: If
+                        $ref: "#/node-output/If/response/payload"
+                      - variable: HTTPInvokemethod
+                        $ref: "#/node-output/HTTP Invoke method/response/payload"
+                      - variable: HTTPInvokemethodMetadata
+                        $ref: "#/node-output/HTTP Invoke method/response"
+                      - variable: Setvariable2
+                        $ref: "#/node-output/Set variable 2/response/payload"
+                      - variable: HTTPInvokemethod3
+                        $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                      - variable: HTTPInvokemethod3Metadata
+                        $ref: "#/node-output/HTTP Invoke method 3/response"
+                      - variable: JSONParserParse2
+                        $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                      - variable: flowDetails
+                        $ref: "#/flowDetails"
+              else:
+                execute: []
+              output-schema:
+                type: object
+                properties:
+                  supplychainOutput:
+                    type: object
+                    properties: {}
+                required: []
+          - custom-action:
+              name: HTTP Invoke method 5
+              target:
+                $ref: "#/integration/action-interfaces/action-interface-6"
+              action: INVOKE
+              map:
+                customSchemas:
+                  properties.`requestHeaders`:
+                    type: object
+                    properties:
+                      Cookie:
+                        type: string
+                      Content-type:
+                        type: string
+                mappings:
+                  - continue2xx:
+                      expression: "false"
+                  - method:
+                      template: POST
+                  - requestBody:
+                      template: |-
+                        {
+                            "startDate": "{{$Foreach2item.startDate}}",
+                            "endDate": "{{$Foreach2item.endDate}}",
+                            "statistics": [
+                                {
+                                    "name": "Energy",
+                                    "filters": [
+                                        {
+                                            "type": "relation",
+                                            "value": "sold"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                  - requestHeaders:
+                      mappings:
+                        - Content-type:
+                            template: application/json
+                        - Cookie:
+                            template: "{{$Setvariable2.variable.Cookie}}"
+                  - url:
+                      template: "{{$Setvariable.variable.config.url}}/api/v3/entities/{{$Foreachitem.\
+                        uuid}}/stats"
+                $map: http://ibm.com/appconnect/map/v1
+                input:
+                  - variable: Foreachitem
+                    $ref: "#/block/For each/current-item"
+                  - variable: Foreach2item
+                    $ref: "#/block/For each 2/current-item"
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: If2
+                    $ref: "#/block/For each/node-output/If 2/response/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+          - parse:
+              name: JSON Parser Parse 4
+              parse-format: json
+              source:
+                template: "{{$HTTPInvokemethod5.responseBody}}"
+                input:
+                  - variable: Foreachitem
+                    $ref: "#/block/For each/current-item"
+                  - variable: Foreach2item
+                    $ref: "#/block/For each 2/current-item"
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: If2
+                    $ref: "#/block/For each/node-output/If 2/response/payload"
+                  - variable: HTTPInvokemethod5
+                    $ref: "#/block/For each/node-output/HTTP Invoke method 5/response/payload"
+                  - variable: HTTPInvokemethod5Metadata
+                    $ref: "#/block/For each/node-output/HTTP Invoke method 5/response"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: HTTPInvokemethod
+                    $ref: "#/node-output/HTTP Invoke method/response/payload"
+                  - variable: HTTPInvokemethodMetadata
+                    $ref: "#/node-output/HTTP Invoke method/response"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: HTTPInvokemethod3
+                    $ref: "#/node-output/HTTP Invoke method 3/response/payload"
+                  - variable: HTTPInvokemethod3Metadata
+                    $ref: "#/node-output/HTTP Invoke method 3/response"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              sample-data: |-
+                [    {
+                        "date": "2022-10-06T00:00:00Z",
+                        "statistics": [
+                            {
+                                "name": "Power",
+                                "units": "W",
+                                "values": {
+                                    "max": 453.0,
+                                    "min": 450.433,
+                                    "avg": 450.518,
+                                    "total": 450.518,
+                                    "totalMax": 453.0,
+                                    "totalMin": 450.433
+                                },
+                                "value": 450.518
+                            }
+                        ],
+                        "epoch": "HISTORICAL"
+                    }]
+              output-schema:
+                $schema: http://json-schema.org/draft-04/schema#
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    statistics:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          units:
+                            type: string
+                          values:
+                            type: object
+                            properties:
+                              max:
+                                type: number
+                              min:
+                                type: number
+                              avg:
+                                type: number
+                              total:
+                                type: number
+                              totalMax:
+                                type: number
+                              totalMin:
+                                type: number
+                          value:
+                            type: number
+                    epoch:
+                      type: string
+                title: Parsed JSON
+    assembly-3:
+      assembly:
+        execute:
+          - for-each:
+              name: For each
+              assembly:
+                $ref: "#/integration/assemblies/assembly-2"
+              source:
+                expression: "$JSONParserParse2 "
+                input:
+                  - variable: Foreach2item
+                    $ref: "#/block/For each 2/current-item"
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+              mode: sequential
+              continue-on-error: false
+              map:
+                $map: http://ibm.com/appconnect/map/v1
+                customSchemas:
+                  properties.`output`:
+                    type: object
+                    properties:
+                      ActiveHostCount:
+                        type: object
+                        properties:
+                          uuid:
+                            type: string
+                          parameter:
+                            type: string
+                          value:
+                            type: number
+                          location:
+                            type: string
+                          date:
+                            type: string
+                          unit:
+                            type: string
+                      VMCount:
+                        type: object
+                        properties:
+                          uuid:
+                            type: string
+                          parameter:
+                            type: string
+                          value:
+                            type: number
+                          location:
+                            type: string
+                          date:
+                            type: string
+                          unit:
+                            type: string
+                      VMToHostDensity:
+                        type: object
+                        properties:
+                          uuid:
+                            type: string
+                          parameter:
+                            type: string
+                          value:
+                            type: number
+                          location:
+                            type: string
+                          date:
+                            type: string
+                          unit:
+                            type: string
+                      EnergyConsumption:
+                        type: object
+                        properties:
+                          uuid:
+                            type: string
+                          parameter:
+                            type: string
+                          value:
+                            type: number
+                          location:
+                            type: string
+                          date:
+                            type: string
+                          unit:
+                            type: string
+                      EnergyToHostIntensity:
+                        type: object
+                        properties:
+                          uuid:
+                            type: string
+                          parameter:
+                            type: string
+                          value:
+                            type: number
+                          location:
+                            type: string
+                          date:
+                            type: string
+                          unit:
+                            type: string
+                input:
+                  - variable: Foreachitem
+                    $ref: "#/block/For each/current-item"
+                  - variable: Foreach2item
+                    $ref: "#/block/For each 2/current-item"
+                  - variable: Trigger
+                    $ref: "#/trigger/payload"
+                  - variable: If2
+                    $ref: "#/block/For each/node-output/If 2/response/payload"
+                  - variable: JSONParserParse4
+                    $ref: "#/block/For each/node-output/JSON Parser Parse 4/response/payload"
+                  - variable: Setvariable
+                    $ref: "#/node-output/Set variable/response/payload"
+                  - variable: If
+                    $ref: "#/node-output/If/response/payload"
+                  - variable: Setvariable2
+                    $ref: "#/node-output/Set variable 2/response/payload"
+                  - variable: JSONParserParse2
+                    $ref: "#/node-output/JSON Parser Parse 2/response/payload"
+                  - variable: flowDetails
+                    $ref: "#/flowDetails"
+                mappings:
+                  - output:
+                      mappings:
+                        - ActiveHostCount:
+                            mappings:
+                              - date:
+                                  template: "{{$Foreach2item.startDate}}"
+                              - location:
+                                  template: "{{$Foreachitem.tags.EnviziAlternateName[0] ?
+                                    $Foreachitem.tags.EnviziAlternateName[0] :
+                                    $Foreachitem.displayName}}"
+                              - parameter:
+                                  template: Active Hosts
+                              - unit:
+                                  template: number
+                              - uuid:
+                                  template: "{{$Foreachitem.uuid}}"
+                              - value:
+                                  expression: "$If2.supplychainOutput.seMap.PhysicalMachine.stateSummary.ACTIVE "
+                        - EnergyConsumption:
+                            mappings:
+                              - date:
+                                  template: "{{$Foreach2item.startDate}}"
+                              - location:
+                                  template: "{{$Foreachitem.tags.EnviziAlternateName[0] ?
+                                    $Foreachitem.tags.EnviziAlternateName[0] :
+                                    $Foreachitem.displayName}}"
+                              - parameter:
+                                  template: Energy Consumption
+                              - unit:
+                                  template: kWh
+                              - uuid:
+                                  template: "{{$Foreachitem.uuid}}"
+                              - value:
+                                  expression: $round($sum($JSONParserParse4.statistics.values.total) * (
+                                    $count($JSONParserParse4.statistics)=1?144:6)/1000,4)
+                        - EnergyToHostIntensity:
+                            mappings:
+                              - date:
+                                  template: "{{$Foreach2item.startDate}}"
+                              - location:
+                                  template: "{{$Foreachitem.tags.EnviziAlternateName[0] ?
+                                    $Foreachitem.tags.EnviziAlternateName[0] :
+                                    $Foreachitem.displayName}}"
+                              - parameter:
+                                  template: Energy Host Intensity
+                              - unit:
+                                  template: kWh/host
+                              - uuid:
+                                  template: "{{$Foreachitem.uuid}}"
+                              - value:
+                                  expression: $round(($sum($JSONParserParse4.statistics.values.total) * (
+                                    $count($JSONParserParse4.statistics)=1?144:6)/1000)/$If2.supplychainOutput.seMap.PhysicalMachine.stateSummary.ACTIVE,4)
+                        - VMCount:
+                            mappings:
+                              - date:
+                                  template: "{{$Foreach2item.startDate}}"
+                              - location:
+                                  template: "{{$Foreachitem.tags.EnviziAlternateName[0] ?
+                                    $Foreachitem.tags.EnviziAlternateName[0] :
+                                    $Foreachitem.displayName}}"
+                              - parameter:
+                                  template: Active VMs
+                              - unit:
+                                  template: number
+                              - uuid:
+                                  template: "{{$Foreachitem.uuid}}"
+                              - value:
+                                  expression: "$If2.supplychainOutput.seMap.VirtualMachine.stateSummary.ACTIVE "
+                        - VMToHostDensity:
+                            mappings:
+                              - date:
+                                  template: "{{$Foreach2item.startDate}}"
+                              - location:
+                                  template: "{{$Foreachitem.tags.EnviziAlternateName[0] ?
+                                    $Foreachitem.tags.EnviziAlternateName[0] :
+                                    $Foreachitem.displayName}}"
+                              - parameter:
+                                  template: VM Host Density
+                              - unit:
+                                  template: VM/host
+                              - uuid:
+                                  template: "{{$Foreachitem.uuid}}"
+                              - value:
+                                  expression: $round($If2.supplychainOutput.seMap.VirtualMachine.stateSummary.ACTIVE/$If2.supplychainOutput.seMap.PhysicalMachine.stateSummary.ACTIVE,4)
+              display-name: DataCenter
+  name: TurbonomicAccounts_v1_0_1
+models: {}
