@@ -3,7 +3,7 @@
 This blog explains about the step-by-step instructions to pull green IT data from Turbonomic into Envizi via webMethods Integration.
 
 #### Authors
- [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1), [Mamatha Venkatesh](https://community.ibm.com/community/user/envirintel/network/members/profile?UserKey=813a3553-d5cc-4b76-9970-ed40f865cb31)
+ [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1)
 
 ## Contents
 
@@ -53,7 +53,7 @@ Envizi product team would have created and shared S3 bucket. This S3 bucket deta
 
 The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV file format. Envizi will further process this CSV file.
 
-## 5. App Connect Configuration
+## 5. webMethods Configuration
 
 ### 5.1. Create Connectors
 
