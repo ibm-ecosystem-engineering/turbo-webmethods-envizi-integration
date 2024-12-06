@@ -279,31 +279,81 @@ The flow is created and available.
 
 <img src="images/15-flow-dashboard.png">
 
-## 6. webMethods flow Execution
+## 6. webMethods flow Execution - Location Feed
 
-#### 6.1. Start the flow
+#### 6.1. Login to webmethods io with username and password
 
-1. Right click on the top of the flow tile and start the flow.
+1. Login page.
 
-<img src="images/16-flow-start.png">
+<img src="images/wMAccLogin-01.png">
 
-#### 6.2. Data in S3
+#### 6.2. Create a new Project
 
-The flows will pull the data from the Turbo and push it to S3. You can see the output like this in S3.
+<img src="images/wMAccNewProject-02.png">
 
-<img src="images/20-s3-1.png">
 
-<img src="images/20-s3-2.png">
+#### 6.3. Create a new Workflows
 
-#### 6.3. Sample Data from S3
+<img src="images/wMAccNewWorkFlow-03.png">
 
 The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 6.4. Processing S3 files in Envizi
+#### 6.4. Start Building your workflow
 
-The Envizi automatically pull the data from S3 and process it and creates/update the Turbonomic Performance Dashboard as below.
 
-<img src="images/30-turbo-dashboard.png">
+<img src="images/wMAccCreateNewWorkFlow-04.png">
+
+#### 6.5. Name the Workflow and find connectors
+
+Name the Workflow and drag & drop the connector "HTTP Request" onto Workflow canvas and click "Next"
+
+<img src="images/wMAccHttpConnector-05.png">
+
+#### 6.6. Use "HTTP Request" connector to Turbonomic Login API
+
+Provide the details like "Select HTTP Method", URL to login to Turbonomics API, URL Params and click Next
+
+<img src="images/wMAccLogin-06.png">
+
+#### 6.7. Use another "HTTP Request" connector for DataCentre details
+
+1. DataCentre API
+
+Provide the API details
+
+<img src="images/wMAccDataCentre-08.png">
+
+2. DataCentre Headers
+
+Provide the header details
+
+<img src="images/wMAccDataCentreHeaders-07.png">
+
+#### 6.8.  User "Query JSON" connector for querying JSON response object
+
+<img src="images/wMLocQeuryJson-16.png">
+
+#### 6.9. Use Flowservice to map and generate custom output
+
+<img src="images/wMLocFlorServiceMap-17.png">
+
+#### 6.10. Use "JSON to CSV" connector to make CSV format
+
+<img src="images/wMLocJsonToCSV-18.png">
+
+#### 6.11. Use custom connector to convert CSV into XLSX format
+1. CSV to XLSX format
+
+<img src="images/wMLocCSVToXLS-19.png">
+
+2. Transform base64
+
+<img src="images/wMLocCSVToXLS-20.png">
+
+#### 6.12. Upload the XLSX file onto AWS S3 Upload file
+
+<img src="images/wMLocS3UploadFile-21.png">
+
 
 ## Reference
 
