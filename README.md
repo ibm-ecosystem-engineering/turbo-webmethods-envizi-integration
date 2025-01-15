@@ -12,7 +12,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
 - [5. webMethods Configuration](#5-webMethods-Configuration)
-- [6. webMethods flow Execution](#6-webMethods-flow-Execution)
+- [6. webMethods flow Execution](#6-webMethods flow Execution - Location Feed)
 
 ## 1. Prerequisite
 
