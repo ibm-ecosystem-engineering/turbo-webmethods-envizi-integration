@@ -293,15 +293,18 @@ The flow is created and available.
 
 #### 5.2. Create a new Project
 
-- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Prouject Name` as 'Turbo_wM_Envizi'
+- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Project Name` as 'Turbo_wM_Envizi'
 - Please name the `Project Name` as per your need.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 5.3. Import the project
+#### 5.3. Import the Workflows
 
-Click on the Import and select the project location to be imported.
+- Click on the `Import` and select the project location to be imported.
+- Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
+- For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
+- Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
 
 <img src="images/wMAccImport-03.png">
 
