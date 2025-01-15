@@ -138,6 +138,7 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 <img src="images/wMAcc-TAPILogin-04.png">
 
 #### 5.5.2. Configure the node `DataCentre Retrieve`
+
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
 - In the `Action configure` page choose as below
@@ -161,6 +162,17 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMLoc-TRet-07.png">
 
+#### 5.5.3. Configure the node `Query JSON`
+
+- Mouse over to `Query JSON` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Under `Query JSON` provide `JSON Data` and `JSON Path Expression`
+- JSON Data: Drag and Drop of previous node object `DataCentre Retrieve`
+- JSON Path Expression: `responseObject`
+- Click on `Next` button
+
+<img src="images/wMLoc-QJson-08.png">
 
 #### 5.6. Activate the Workflow
 
