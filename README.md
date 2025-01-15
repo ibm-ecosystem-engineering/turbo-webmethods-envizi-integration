@@ -318,46 +318,6 @@ Click on the run the workflow to generate the location feed and push the feed to
 
 <img src="images/wMAccRun-06.png">
 
-#### 6.7. Use another "HTTP Request" connector for DataCentre details
-
-1. DataCentre API
-
-Provide the API details
-
-<img src="images/wMAccDataCentre-08.png">
-
-2. DataCentre Headers
-
-Provide the header details
-
-<img src="images/wMAccDataCentreHeaders-07.png">
-
-#### 6.8.  User "Query JSON" connector for querying JSON response object
-
-<img src="images/wMLocQeuryJson-16.png">
-
-#### 6.9. Use Flowservice to map and generate custom output
-
-<img src="images/wMLocFlorServiceMap-17.png">
-
-#### 6.10. Use "JSON to CSV" connector to make CSV format
-
-<img src="images/wMLocJsonToCSV-18.png">
-
-#### 6.11. Use custom connector to convert CSV into XLSX format
-1. CSV to XLSX format
-
-<img src="images/wMLocCSVToXLS-19.png">
-
-2. Transform base64
-
-<img src="images/wMLocCSVToXLS-20.png">
-
-#### 6.12. Upload the XLSX file onto AWS S3 Upload file
-
-<img src="images/wMLocS3UploadFile-21.png">
-
-
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
