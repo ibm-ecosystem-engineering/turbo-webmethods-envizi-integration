@@ -292,28 +292,31 @@ The flow is created and available.
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 6.3. Create a new Workflows
+#### 6.3. Import the project
 
-<img src="images/wMAccNewWorkFlow-03.png">
+Click on the Import and select the project location to be imported.
+
+<img src="images/wMAccImport-03.png">
 
 The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 6.4. Start Building your workflow
+#### 6.4. Supply Workflow name, Workflow description, AWS service
 
+Provide the Workflow name, Workflow description and select/click on "+" to provide the AWS service and click on Import
 
-<img src="images/wMAccCreateNewWorkFlow-04.png">
+<img src="images/wMAccWorkflow-04.png">
 
-#### 6.5. Name the Workflow and find connectors
+#### 6.5. Activate the Workflow
 
-Name the Workflow and drag & drop the connector "HTTP Request" onto Workflow canvas and click "Next"
+Toggle ON the workflow to activate
 
-<img src="images/wMAccHttpConnector-05.png">
+<img src="images/wMAccToggleON-05.png">
 
-#### 6.6. Use "HTTP Request" connector to Turbonomic Login API
+#### 6.6. Run the Workflow
 
-Provide the details like "Select HTTP Method", URL to login to Turbonomics API, URL Params and click Next
+Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
-<img src="images/wMAccLogin-06.png">
+<img src="images/wMAccRun-06.png">
 
 #### 6.7. Use another "HTTP Request" connector for DataCentre details
 
