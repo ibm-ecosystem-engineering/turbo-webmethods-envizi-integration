@@ -85,6 +85,7 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 - Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
+- Click on `Import` button
 
 <img src="images/wMAccWorkflow-04.png">
 
@@ -96,7 +97,7 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 #### 5.5.1. Configure the node `Turbonomic API Login`
 
-- Mouse over to `Turbonomic API Login` node and click on the `Settings`
+- Mouse over to `Turbonomic API Login` node and click on `Settings`
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `POST`
@@ -132,9 +133,34 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 #### Test this action
 
-- Click on `Test` button to see if the login is successful and Click on `Done` button if it is success.
+- Click on `Test` button to see if the login is successful and Click on `Done` button once it is success.
 
 <img src="images/wMAcc-TAPILogin-04.png">
+
+#### 5.5.2. Configure the node `DataCentre Retrieve`
+- Mouse over to `DataCentre Retrieve` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Select HTTP Method: `GET`
+- URL: `https://sales1.demo.turbonomic.com/api/v3/search?types=DataCenter`
+
+<img src="images/wMLoc-TRet-05.png">
+
+#### Headers
+
+- Under `Headers` 'Headers 1' Key & Value to be provided
+- Key: `Cookie`
+- Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
+- Click on `Next`
+
+<img src="images/wMLoc-TRet-06.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the DataCentre Retrieval is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-TRet-07.png">
+
 
 #### 5.6. Activate the Workflow
 
