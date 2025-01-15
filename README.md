@@ -281,18 +281,25 @@ The flow is created and available.
 
 ## 6. webMethods Flow Execution Location Feed
 
-#### 6.1. Login to webmethods io with username and password
+#### 5.1. Login to webmethods io with username and password
 
 1. Login page.
 
+- URL used `https://presaleseueplus.int-aws-de.webmethods.io/#/`
+- Provide the `Username` and `Password`
+- click on `Log in` button
+
 <img src="images/wMAccLogin-01.png">
 
-#### 6.2. Create a new Project
+#### 5.2. Create a new Project
+
+- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Prouject Name` as 'Turbo_wM_Envizi'
+- Please name the `Project Name` as per your need.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 6.3. Import the project
+#### 5.3. Import the project
 
 Click on the Import and select the project location to be imported.
 
@@ -300,19 +307,19 @@ Click on the Import and select the project location to be imported.
 
 The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 6.4. Supply Workflow name, Workflow description, AWS service
+#### 5.4. Supply Workflow name, Workflow description, AWS service
 
 Provide the Workflow name, Workflow description and select/click on "+" to provide the AWS service and click on Import
 
 <img src="images/wMAccWorkflow-04.png">
 
-#### 6.5. Activate the Workflow
+#### 5.5. Activate the Workflow
 
 Toggle ON the workflow to activate
 
 <img src="images/wMAccToggleON-05.png">
 
-#### 6.6. Run the Workflow
+#### 5.6. Run the Workflow
 
 Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
