@@ -88,13 +88,53 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMAccWorkflow-04.png">
 
-#### 5.4. Configure the Workflow nodes
+#### 5.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
-1. Mouse over to `Turbonomic API Login` node and click on the `Settings`
+#### 5.5.1. Configure the node `Turbonomic API Login`
 
-#### 5.5. Activate the Workflow
+- Mouse over to `Turbonomic API Login` node and click on the `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Select HTTP Method: `POST`
+- URL: `https://sales1.demo.turbonomic.com/api/v3/login?hateoas=true`
+
+<img src="images/wMAcc-TAPILogin-01.png">
+
+#### URL Params
+
+- Under `URL Param 1` Key and Value to be updated
+- Key: `hateoas`
+- Value: `true`
+
+<img src="images/wMAcc-TAPILogin-02.png">
+
+#### Set Body Type
+
+- Set Body Type: `x-www-form-urlencoded`
+
+#### Body
+
+- Under `Body 1` Name & Value to be updated
+- Name: `username`
+- Value: `Value of the username`
+- Under `Body 2` Name & Value to be updated
+- Name: `password`
+- Value: `Value of the password`
+
+- Rest of the values to be left as is.
+- Click on `Next`
+
+<img src="images/wMAcc-TAPILogin-03.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the login is successful and Click on `Done` button if it is success.
+
+<img src="images/wMAcc-TAPILogin-04.png">
+
+#### 5.6. Activate the Workflow
 
 Toggle ON the workflow to activate
 
