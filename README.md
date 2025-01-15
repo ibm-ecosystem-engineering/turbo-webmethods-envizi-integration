@@ -92,6 +92,8 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 - In this step Workflow nodes configuration needs to be updated.
 
+<img src="images/wMLocationWorkflow.png">
+
 #### 5.5.1. Configure the node `Turbonomic API Login`
 
 - Mouse over to `Turbonomic API Login` node and click on the `Settings`
