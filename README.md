@@ -174,6 +174,12 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMLoc-QJson-08.png">
 
+#### Test this action
+
+- Click on `Test` button to see if the Query JSON is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-QJson-09.png">
+
 #### 5.6. Activate the Workflow
 
 Toggle ON the workflow to activate
