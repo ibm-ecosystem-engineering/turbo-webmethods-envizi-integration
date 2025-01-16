@@ -74,6 +74,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### 5.3. Import the Workflows
 
+- Download the Workflow archive file here [Locations](./files/webMethods-archives/Locations).
 - Click on the `Import` and select the project location to be imported.
 
 <img src="images/wMAccImport-03.png">
@@ -119,6 +120,7 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 #### Body
 
+- Note: `username` and `password` to access the Turbonomic API's can be created using linke `https://github.com/GandhiCloudLab/turbonomic-api`
 - Under `Body 1` Name & Value to be updated
 - Name: `username`
 - Value: `Value of the username`
