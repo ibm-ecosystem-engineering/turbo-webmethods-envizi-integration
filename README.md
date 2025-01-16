@@ -87,7 +87,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
 - Click on `Import` button
 
-<img src="images/wMAccWorkflow-04.png">
+<img src="images/wMLocWorkflow-04.png">
 
 #### 5.5. Configure the Workflow nodes
 
@@ -299,6 +299,15 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
+
+#### 6.4. Provide Workflow name, Workflow description, AWS service
+
+- Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
+- For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
+- Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
+- Click on `Import` button
+
+<img src="images/wMAccWorkflow-01.png">
 
 ## Reference
 
