@@ -317,7 +317,46 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccWorkflow-02.png">
 
+#### 6.5.1. Configure the node `Turbonomic API Login`
 
+- Mouse over to `Turbonomic API Login` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Select HTTP Method: `POST`
+- URL: `https://sales1.demo.turbonomic.com/api/v3/login?hateoas=true`
+
+#### URL Params
+
+- Under `URL Param 1` Key and Value to be updated
+- Key: `hateoas`
+- Value: `true`
+
+<img src="images/wMAccTAPILogin-03.png">
+
+#### Set Body Type
+
+- Set Body Type: `multipart-form-data`
+
+#### Body
+
+- Note: `username` and `password` to access the Turbonomic API's can be created using link [User-Creation](https://github.com/GandhiCloudLab/turbonomic-api)
+- Under `Body 1` Name & Value to be updated
+- Name: `username`
+- Value: `Value of the username`
+- Under `Body 2` Name & Value to be updated
+- Name: `password`
+- Value: `Value of the password`
+
+- Rest of the values to be left as is.
+- Click on `Next`
+
+<img src="images/wMAccTAPILogin-04.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the login is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccTAPILogin-05.png">
 
 ## Reference
 
