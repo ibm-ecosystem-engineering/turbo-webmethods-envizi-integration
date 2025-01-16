@@ -441,9 +441,26 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### Test this action
 
-- Click on `Test` button to see if the "Query JSON" is successful and Click on `Done` button once it is success.
+- Click on `Test` button to see if the `Query JSON` is successful and Click on `Done` button once it is success.
 
 <img src="images/wMAccQJSON-13.png">
+
+#### 6.5.5. Configure the node `AccountsMap`
+
+- Mouse over to `AccountsMap` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- under `AccountsMap`
+- request: Drag and Drop of `Query JSON`
+- Click on `Next`
+
+<img src="images/wMAccAMap-14.png">
+
+#### Test this action
+
+ Click on `Test` button to see if the `AccountsMap` is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccAMap-15.png">
 
 ## Reference
 
