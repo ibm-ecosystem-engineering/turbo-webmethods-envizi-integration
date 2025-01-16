@@ -75,7 +75,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 #### 5.3. Import the Workflows
 
 - Download the Workflow archive file here [Locations](./files/webMethods-archives/Locations).
-- Click on the `Import` and select the project location to be imported.
+- Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
