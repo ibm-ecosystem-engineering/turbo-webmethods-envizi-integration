@@ -389,6 +389,39 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccDTRet-07.png">
 
+#### 6.5.3. Configure the node `DC Accounts Stats`
+
+- Mouse over to `DC Accounts Stats` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Select HTTP Method: `POST`
+- URL: `https://sales1.demo.turbonomic.com/api/v3/entities/{{$a3.responseObject.0.uuid}}/stats` . Note {{$a3.responseObject.0.uuid}} is the `uuid` from preveious API call which can be drag and drop from `responseObject` under `DataCentre Retrieve` as shown below
+
+<img src="images/wMAccDTStat-09.png">
+
+#### Headers
+
+- Under `Headers` Headers 1 Key & Value to be provided
+- Key: `Cookie`
+- Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
+
+#### Set Body Type and Body
+- Set Body Type: `JSON`
+- Body: `{"data":{
+"startDate":"2024-12-06 00:00:05", "endDate": "2024-12-10 23:59:59","statistics": [
+{
+"name": "Energy",
+"filters": [
+{
+"type": "relation",
+"value": "sold"
+}]}]}}`
+- Please note: The `startDate` and `endDate` has to be updated edited to retrieve the stats.
+- Click on `Next`
+- The rest of the values to be left as is.
+
+<img src="images/wMAccDTStat-10.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
