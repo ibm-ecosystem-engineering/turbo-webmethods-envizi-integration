@@ -523,7 +523,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 - Run the Workflow to push the DataCentre electricity consumption stats to Envizi
 
-<img src="images/wMAccAct-22.png">
+<img src="images/wMAccRun-22.png">
 
 ## Reference
 
