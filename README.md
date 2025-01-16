@@ -481,6 +481,38 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
  <img src="images/wMAccJCSV-17.png">
 
+ #### 6.5.7. Configure the node `S3 Upload File`
+
+- Mouse over to `S3 Upload File` node and Click on `Settings`
+- Click on `Next`
+- Fill the details as below
+- Select action: `S3 Upload File`
+- Name: `S3 Upload File` .  Name can be updated as per need.
+- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 5.4
+- Click `Next`
+
+<img src="images/wMAccS3Upload-18.png">
+
+#### Bucket Name and other configuration
+
+- Pleaes note AWS S3 bucket details provided as part of step 4
+- Upload File: `Content`
+- Raw Data: Drap and Drop the `csv` under `JSON to CSV`
+- Bucket Name: s3 bucket name provided in step 4
+- File Name: Folder/filename provided in step 4. File name format as Account_Setup_and_Data_Load_IBMCloud_electricity.csv
+- ACL: `bucket-owner-full-control`
+- Region: region provided in step 4
+- Content-Type: `text/csv`
+- Click `Next`
+
+<img src="images/wMAccS3Upload-19.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the `S3 Upload File` is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccS3Upload-20.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
