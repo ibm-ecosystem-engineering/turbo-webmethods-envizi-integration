@@ -462,6 +462,25 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccAMap-15.png">
 
+#### 6.5.6. Configure the node `JSON to CSV`
+
+- Mouse over to `JSON to CSV` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- under `JSON to CSV`
+- Input JSON: Drag and Drop `response` from AccountsMap
+- Header Type: `Key`
+- Rest of the values leave as is.
+- CLick on `Next`
+
+<img src="images/wMAccJCSV-16.png">
+
+#### Test this action
+
+ Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
+
+ <img src="images/wMAccJCSV-17.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
