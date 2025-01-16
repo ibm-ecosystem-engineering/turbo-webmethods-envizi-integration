@@ -513,6 +513,18 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccS3Upload-20.png">
 
+#### 6.6. Activate the Workflow
+
+- Toggle `ON` to activate the Workflow
+
+<img src="images/wMAccAct-21.png">
+
+#### 6.7. Run the Workflow
+
+- Run the Workflow to push the DataCentre electricity consumption stats to Envizi
+
+<img src="images/wMAccAct-22.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
