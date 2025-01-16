@@ -422,6 +422,12 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccDTStat-10.png">
 
+#### Test this action
+
+- Click on `Test` button to see if the DC Accounts Stats is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccDTStat-11.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
