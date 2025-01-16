@@ -428,6 +428,23 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccDTStat-11.png">
 
+#### 6.5.4. Configure the node `Query JSON`
+
+- Mouse over to `Query JSON` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- JSON Data: Drag and Drop the `DC Accounts Stats` onto `JSON Data`
+- JSON Path Expression: `responseObject`
+- Click on `Next`
+
+<img src="images/wMAccQJSON-12.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the Query JSON is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccQJSON-13.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
