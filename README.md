@@ -212,6 +212,21 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMLoc-JCSV-13.png">
 
+#### 5.5.6. Configure the node `suscsvtoxl`
+
+- This is a customized connector which transform the CSV format into xlsx format.
+- Mouse over to `suscsvtoxl` node and Click on `Settings`
+- Click on `Next`
+- In the `Action configure` page drap and drop `value` from the Transform onto `CSV File(Base64)` in the `Convert CSV to XLSX input` as shown below
+- Click on `Next`
+
+<img src="images/wMLoc-CSVTOXL-14.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the `suscsvtoxl` is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-CSVTOXL-15.png">
 
 #### 5.6. Activate the Workflow
 
