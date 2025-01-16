@@ -12,6 +12,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
 - [5. webMethods Flow Execution Location Feed](#5-webMethods-Flow-Execution-Location-Feed)
+- [6. webMethods Flow Execution Account Feed](#5-webMethods-Flow-Execution-Account-Feed)
 
 ## 1. Prerequisite
 
@@ -262,15 +263,42 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### 5.6. Activate the Workflow
 
-Toggle ON the workflow to activate
+- Toggle `ON` the workflow to activate
 
 <img src="images/wMAccToggleON-19.png">
 
 #### 5.6. Run the Workflow
 
-Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
+- Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
 <img src="images/wMAccRun-20.png">
+
+## 6. webMethods Flow Execution Account Feed
+
+#### 6.1. Login to webmethods io with username and password
+
+1. Login page.
+
+- URL used `https://presaleseueplus.int-aws-de.webmethods.io/#/`
+- Provide the `Username` and `Password`
+- click on `Log in` button
+
+<img src="images/wMAccLogin-01.png">
+
+#### 6.2. Create a new Project
+
+- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Project Name` as 'Turbo_wM_Envizi'
+- Please name the `Project Name` as per your need.
+
+<img src="images/wMAccNewProject-02.png">
+
+
+#### 6.3. Import the Workflows
+
+- Download the Workflow archive file here [Accounts](./files/webMethods-archives/Locations).
+- Click on the `Import` and select the Workflow location that is downloaded in the above step.
+
+<img src="images/wMAccImport-03.png">
 
 ## Reference
 
