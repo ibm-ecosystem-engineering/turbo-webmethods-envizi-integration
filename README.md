@@ -79,7 +79,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccImport-03.png">
 
-#### 5.4. Supply Workflow name, Workflow description, AWS service
+#### 5.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
@@ -118,7 +118,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### Body
 
-- Note: `username` and `password` to access the Turbonomic API's can be created using linke `https://github.com/GandhiCloudLab/turbonomic-api`
+- Note: `username` and `password` to access the Turbonomic API's can be created using link [User-Creation](https://github.com/GandhiCloudLab/turbonomic-api)
 - Under `Body 1` Name & Value to be updated
 - Name: `username`
 - Value: `Value of the username`
