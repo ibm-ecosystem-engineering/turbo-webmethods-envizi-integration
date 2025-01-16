@@ -79,8 +79,6 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccImport-03.png">
 
-The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
-
 #### 5.4. Supply Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
