@@ -12,7 +12,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
 - [5. webMethods Flow Execution Location Feed](#5-webMethods-Flow-Execution-Location-Feed)
-- [6. webMethods Flow Execution Account Feed](#5-webMethods-Flow-Execution-Account-Feed)
+- [6. webMethods Flow Execution Accounts Feed](#6-webMethods-Flow-Execution-Accounts-Feed)
 
 ## 1. Prerequisite
 
@@ -273,7 +273,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccRun-20.png">
 
-## 6. webMethods Flow Execution Account Feed
+## 6. webMethods Flow Execution Accounts Feed
 
 #### 6.1. Login to webmethods io with username and password
 
