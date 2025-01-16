@@ -358,6 +358,37 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccTAPILogin-05.png">
 
+#### 6.5.2. Configure the node `DataCentre Retrieve`
+
+- Mouse over to `DataCentre Retrieve` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page choose as below
+- Select HTTP Method: `GET`
+- URL: `https://sales1.demo.turbonomic.com/api/v3/search?types=DataCenter`
+
+#### URL Params
+
+- Provide `Key` and `Value` under 'URL Param 1'
+- Key: `types`
+- Value: `DataCentre`
+
+<img src="images/wMAccDTRet-06.png">
+
+#### Headers
+
+- Under `Headers` 'Headers 1' Key & Value to be provided
+- Key: `Cookie`
+- Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
+- Click on `Next`
+
+<img src="images/wMAccDTRet-07.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the DataCentre Retrieval is successful and Click on `Done` button once it is success.
+
+<img src="images/wMAccDTRet-07.png">
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
