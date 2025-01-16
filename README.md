@@ -309,6 +309,16 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccWorkflow-01.png">
 
+- Click on `Edit` by moving mouse over the Workflow imported above.
+
+#### 6.5. Configure the Workflow nodes
+
+- In this step Workflow nodes configuration needs to be updated.
+
+<img src="images/wMAccWorkflow-02.png">
+
+
+
 ## Reference
 
 Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
