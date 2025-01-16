@@ -11,7 +11,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [2. Architecture](#2-Architecture)
 - [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
-- [5. webMethods Flow Execution Location Feed](#6-webMethods-Flow-Execution-Location-Feed)
+- [5. webMethods Flow Execution Location Feed](#5-webMethods-Flow-Execution-Location-Feed)
 
 ## 1. Prerequisite
 
@@ -192,9 +192,26 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 #### Test this action
 
-- Click on `Test` button to see if the mapRequest is successful and Click on `Done` button once it is success.
+- Click on `Test` button to see if the `mapRequest` is successful and Click on `Done` button once it is success.
 
 <img src="images/wMLoc-mReq-11.png">
+
+#### 5.5.5. Configure the node `JSON to CSV`
+
+- Mouse over to `JSON to CSV` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page drap and drop `mapRequest` on to value of the `Inpurt JSON`.
+- Header Type: `key` from the drop down list
+- Click on `Next`
+
+<img src="images/wMLoc-JCSV-12.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-JCSV-13.png">
+
 
 #### 5.6. Activate the Workflow
 
