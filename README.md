@@ -180,6 +180,22 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMLoc-QJson-09.png">
 
+#### 5.5.4. Configure the node `mapRequest`
+
+- This is a flow service which customize and maps the request to the custom output. For example selecting specific columns, hard-coding the selected columns etc.,
+- Mouse over to `mapRequest` node and click on `Settings`
+- Click on `Next`
+- In the `Action configure` page drag and drop `Query JSON` object in the `request` at mapRequest.
+- Click on `Next` button
+
+<img src="images/wMLoc-mReq-10.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the mapRequest is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-mReq-11.png">
+
 #### 5.6. Activate the Workflow
 
 Toggle ON the workflow to activate
