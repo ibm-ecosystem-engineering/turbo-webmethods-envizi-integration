@@ -228,17 +228,49 @@ The sample data is available here.  [Accounts](./files/data/accounts/),  [Locati
 
 <img src="images/wMLoc-CSVTOXL-15.png">
 
+#### 5.5.7. Configure the node `S3 Upload File`
+
+- Mouse over to `S3 Upload File` node and Click on `Settings`
+- Click on `Next`
+- Fill the details as below
+- Select action: `S3 Upload File`
+- Name: `S3 Upload File` .  Name can be updated as per need.
+- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 5.4
+- Click `Next`
+
+<img src="images/wMLoc-S3Upload-16.png">
+
+#### Bucket Name and other configuration
+
+- Pleaes note AWS S3 bucket details provided as part of step 4
+- Upload File: `Content`
+- Raw Data: Drap and Drop the `XLSX Data(Binary)` under suscsvtoxl
+- Bucket Name: s3 bucket name provided in step 4
+- File Name: Folder/filename provided in step 4. File name format as Envizi_SetupConfig_G5_YYYYMMDD.xlsx
+- ACL: `bucket-owner-full-control`
+- Region: region provided in step 4
+- Content-Type: `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+- Click `Next`
+
+<img src="images/wMLoc-S3Upload-17.png">
+
+#### Test this action
+
+- Click on `Test` button to see if the `S3 Upload File` is successful and Click on `Done` button once it is success.
+
+<img src="images/wMLoc-S3Upload-18.png">
+
 #### 5.6. Activate the Workflow
 
 Toggle ON the workflow to activate
 
-<img src="images/wMAccToggleON-05.png">
+<img src="images/wMAccToggleON-19.png">
 
 #### 5.6. Run the Workflow
 
 Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
-<img src="images/wMAccRun-06.png">
+<img src="images/wMAccRun-20.png">
 
 ## Reference
 
