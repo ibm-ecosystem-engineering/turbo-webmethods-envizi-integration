@@ -4,6 +4,9 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1)
+ [Madhukrishna Parike]
+ [JYOTI RANI]
+ [INDIRA KALAGARA]
 
 ## Contents
 
@@ -13,6 +16,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
 - [5. webMethods Locations Workflow Configuration](#5-webMethods-Locations-Workflow-Configuration)
 - [6. webMethods Accounts Workflow Configuration](#6-webMethods-Accounts-Workflow-Configuration)
+- [7. Validate Workflow Execution](#7-Validate-Workflow-Execution)
 
 ## 1. Prerequisite
 
@@ -510,6 +514,20 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Run the Workflow to push the DataCentre electricity consumption stats to Envizi
 
 <img src="images/wMAccRun-22.png">
+
+## 7. Validate Workflow Execution
+
+#### 7.1. Data in S3
+
+- The flows will pull the data from the Turbo and push it to S3. You can see the output like this in S3.
+
+#### 7.2. Sample Data from S3
+
+- The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
+
+#### 7.2. Processing S3 files in Envizi
+
+- The Envizi automatically pull the data from S3 and process it and creates/update the Turbonomic Performance Dashboard as below.
 
 ## Reference
 
