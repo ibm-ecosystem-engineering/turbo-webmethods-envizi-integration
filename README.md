@@ -55,12 +55,9 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 ## 5. webMethods Locations Workflow Configuration
 
-#### 5.1. Login to webmethods io with username and password
+#### 5.1. Login to webMethods Integration
 
-#### Login page.
-
-- Please use your webMethods URL
-- Login URL with `Username` and `Password`
+- Login to your instance of webMethods integration with the respective credentials.
 
 #### 5.2. Create a new Project
 
@@ -271,12 +268,9 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 ## 6. webMethods Accounts Workflow Configuration
 
-#### 6.1. Login to webmethods io with username and password
+#### 6.1. Login to webMethods Integration
 
-#### Login page
-
-- Please use your webMethods URL
-- Login URL with `Username` and `Password`
+- Login to your instance of webMethods integration with the respective credentials.
 
 #### 6.2. Create a new Project
 
