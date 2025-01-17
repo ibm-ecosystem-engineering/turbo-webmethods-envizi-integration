@@ -11,8 +11,8 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [2. Architecture](#2-Architecture)
 - [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
 - [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
-- [5. webMethods Flow Execution Location Feed](#5-webMethods-Flow-Execution-Location-Feed)
-- [6. webMethods Flow Execution Accounts Feed](#6-webMethods-Flow-Execution-Accounts-Feed)
+- [5. webMethods Locations Workflow Configuration](#5-webMethods-Locations-Workflow-Configuration)
+- [6. webMethods Accounts Workflow Configuration](#6-webMethods-Accounts-Workflow-Configuration)
 
 ## 1. Prerequisite
 
@@ -53,22 +53,18 @@ Envizi product team would have created and shared S3 bucket. This S3 bucket deta
 
 The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV file format. Envizi will further process this CSV file.
 
-## 5. webMethods Flow Execution Location Feed
+## 5. webMethods Locations Workflow Configuration
 
 #### 5.1. Login to webmethods io with username and password
 
-1. Login page.
+#### Login page.
 
-- URL used `https://presaleseueplus.int-aws-de.webmethods.io/#/`
-- Provide the `Username` and `Password`
-- click on `Log in` button
-
-<img src="images/wMAccLogin-01.png">
+- Please use your webMethods URL
+- Login URL with `Username` and `Password`
 
 #### 5.2. Create a new Project
 
-- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Project Name` as 'Turbo_wM_Envizi'
-- Please name the `Project Name` as per your need.
+- Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
@@ -101,7 +97,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `POST`
-- URL: `https://sales1.demo.turbonomic.com/api/v3/login?hateoas=true`
+- URL: `https://[Turbonomic-URL]/api/v3/login?hateoas=true`
 
 <img src="images/wMAcc-TAPILogin-01.png">
 
@@ -144,7 +140,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `GET`
-- URL: `https://sales1.demo.turbonomic.com/api/v3/search?types=DataCenter`
+- URL: `https://[Turbonomic-URL]]/api/v3/search?types=DataCenter`
 
 <img src="images/wMLoc-TRet-05.png">
 
@@ -273,22 +269,18 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccRun-20.png">
 
-## 6. webMethods Flow Execution Accounts Feed
+## 6. webMethods Accounts Workflow Configuration
 
 #### 6.1. Login to webmethods io with username and password
 
-1. Login page.
+#### Login page
 
-- URL used `https://presaleseueplus.int-aws-de.webmethods.io/#/`
-- Provide the `Username` and `Password`
-- click on `Log in` button
-
-<img src="images/wMAccLogin-01.png">
+- Please use your webMethods URL
+- Login URL with `Username` and `Password`
 
 #### 6.2. Create a new Project
 
-- Provide `Project Name` and Leave `Source Control - Git server/account` as Default. I have provided the `Project Name` as 'Turbo_wM_Envizi'
-- Please name the `Project Name` as per your need.
+- Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
@@ -323,7 +315,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `POST`
-- URL: `https://sales1.demo.turbonomic.com/api/v3/login?hateoas=true`
+- URL: `https://[Tubonomic-URL]]/api/v3/login?hateoas=true`
 
 #### URL Params
 
@@ -364,7 +356,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `GET`
-- URL: `https://sales1.demo.turbonomic.com/api/v3/search?types=DataCenter`
+- URL: `https://[Turbonomic-URL]]/api/v3/search?types=DataCenter`
 
 #### URL Params
 
@@ -395,7 +387,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 - Click on `Next`
 - In the `Action configure` page choose as below
 - Select HTTP Method: `POST`
-- URL: `https://sales1.demo.turbonomic.com/api/v3/entities/{{$a3.responseObject.0.uuid}}/stats` . Note {{$a3.responseObject.0.uuid}} is the `uuid` from preveious API call which can be drag and drop from `responseObject` under `DataCentre Retrieve` as shown below
+- URL: `https://[Turbonomic-URL]]/api/v3/entities/{{$a3.responseObject.0.uuid}}/stats` . Note {{$a3.responseObject.0.uuid}} is the `uuid` from preveious API call which can be drag and drop from `responseObject` under `DataCentre Retrieve` as shown below
 
 <img src="images/wMAccDTStat-09.png">
 
