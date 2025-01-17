@@ -4,9 +4,9 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1)
- [Madhukrishna Parike]
- [JYOTI RANI]
- [INDIRA KALAGARA]
+ [Madhukrishna Parike]()
+ [JYOTI RANI]()
+ [INDIRA KALAGARA]()
 
 ## Contents
 
@@ -525,7 +525,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 - The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 7.2. Processing S3 files in Envizi
+#### 7.3. Processing S3 files in Envizi
 
 - The Envizi automatically pull the data from S3 and process it and creates/update the Turbonomic Performance Dashboard as below.
 
