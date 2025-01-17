@@ -263,7 +263,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccToggleON-19.png">
 
-#### 5.6. Run the Workflow
+#### 5.7. Run the Workflow
 
 - Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
