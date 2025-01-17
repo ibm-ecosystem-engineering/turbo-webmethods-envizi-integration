@@ -55,6 +55,17 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 
 Envizi product team would have created and shared S3 bucket. This S3 bucket details to be feed into the webMethods flow.
 
+1. Create S3 bucket in Envizi via the Data Services screen in Data flow Automation. Note the Accesskey and other details to use it later in webMethods.
+
+    <img src="images/image-12.png">
+
+    <img src="images/image-13.png">
+
+2. Create Data pipeline to associate the Data services to the file name pattern to integrate with Envizi.
+
+    <img src="images/image-14.png">
+
+
 The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV file format. Envizi will further process this CSV file.
 
 ## 5. webMethods Locations Workflow Configuration
@@ -519,7 +530,9 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### 7.1. Data in S3
 
-- The flows will pull the data from the Turbo and push it to S3. You can see the output like this in S3.
+- The flows will pull the data from the Turbo and push it to S3. You can see the Data flow status in S3 like this.
+
+<img src="images/image-11.png">
 
 #### 7.2. Sample Data from S3
 
@@ -527,7 +540,13 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### 7.3. Processing S3 files in Envizi
 
-- The Envizi automatically pull the data from S3 and process it and creates/update the Turbonomic Performance Dashboard as below.
+- The Envizi automatically pull the data from S3 and process it. The accounts and account summary page looks like this now.
+
+<img src="images/image-15.png">
+
+
+<img src="images/image-16.png">
+<img src="images/image-17.png">
 
 ## Reference
 
@@ -535,25 +554,9 @@ Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Softwar
 
 Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconnect-flows
 
-
 ## Appendix
 
-Refer the following.
-
-#### Achieve Green IT targets by integrating Turbonomic with Envizi
-
-This document covers how Organizations with a sustainability initiative can have an instant impact in their IT Operations by leveraging IBM Turbonomic with Envizi. 
-
-[../01-green-it-turbo-envizi](../01-green-it-turbo-envizi/)
-
-
-#### Envizi - Turbonomic Performance Dashboard 
-
-This document describes about the Turbonomic Performance Dashboard available in Envizi.
-
-[../03-turbonomic-performance-dashaboard](../03-turbonomic-performance-dashaboard/)
-
- 
+#### Tags 
 #envizi
 #Sustainability
 #turbonomic
