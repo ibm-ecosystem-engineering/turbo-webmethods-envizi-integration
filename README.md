@@ -53,9 +53,11 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 
 ## 4. Envizi's S3 bucket 
 
-Envizi product team would have created and shared S3 bucket. This S3 bucket details to be feed into the webMethods flow.
+S3 bucket to be created in Envizi via Data Flow Automation. This S3 bucket details to be feed into the webMethods flow.
 
-1. Create S3 bucket in Envizi via the Data Services screen in Data flow Automation. Note the Accesskey and other details to use it later in webMethods.
+1. Create S3 bucket in Envizi via the Data Services screen in Data flow Automation. 
+
+Note the Accesskey and other details to use it later in webMethods.
 
     <img src="images/image-12.png">
 
@@ -540,7 +542,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 #### 7.3. Processing S3 files in Envizi
 
-- The Envizi automatically pull the data from S3 and process it. The accounts and account summary page looks like this now.
+- Envizi automatically pull the data from S3 and process it. The accounts and account summary page looks like this now.
 
 <img src="images/image-15.png">
 
