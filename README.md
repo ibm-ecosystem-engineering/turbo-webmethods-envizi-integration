@@ -3,8 +3,8 @@
 This blog explains about the step-by-step instructions to pull green IT data from Turbonomic into Envizi via webMethods Integration.
 
 #### Authors
- [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1)
- [Madhukrishna Parike](<br />)
+ [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1) <br />
+ [Madhukrishna Parike]() <br />
  [JYOTI RANI]()
  [INDIRA KALAGARA]()
 
