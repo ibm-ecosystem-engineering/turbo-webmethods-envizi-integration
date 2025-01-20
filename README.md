@@ -12,19 +12,17 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 - [1. Prerequisite](#1-Prerequisite)
 - [2. Architecture](#2-Architecture)
-- [3. Turbonomic Configuration ](#3-Turbonomic-Configuration)
-- [4. Envizi's S3 bucket ](#4-envizis-s3-bucket)
-- [5. webMethods Locations Workflow Configuration](#5-webMethods-Locations-Workflow-Configuration)
-- [6. webMethods Accounts Workflow Configuration](#6-webMethods-Accounts-Workflow-Configuration)
-- [7. Validate Workflow Execution](#7-Validate-Workflow-Execution)
-- [8. Schedule Workflow Execution](#8-Schedule-Workflow-Execution)
+- [3. webMethods Locations Workflow Configuration](#3-webMethods-Locations-Workflow-Configuration)
+- [4. webMethods Accounts Workflow Configuration](#4-webMethods-Accounts-Workflow-Configuration)
+- [5. Validate Workflow Execution](#5-Validate-Workflow-Execution)
+- [6. Schedule Workflow Execution](#6-Schedule-Workflow-Execution)
 
 ## 1. Prerequisite
 
 - Turbonomic v8.14.3 or higher 
 - A user with `Observer` role in Turbonomic. (Refer [here](#user-content-1-create-user-in-turbonomoic-user) to create the user)
 - Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
-- webMethods SaaS or on-prem
+- webMethods SaaS or on-prem (Click [here] https://signup.softwareag.cloud/#/basic-b to signup for Trial)
 
 ## 2. Architecture
 
@@ -35,6 +33,8 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 <img src="images/arch.png">
 
 ## 3. webMethods Locations Workflow Configuration
+
+In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations and transform the JSON API response into the XLS template expected by Envizi.
 
 #### 3.1. Login to webMethods Integration
 
@@ -248,6 +248,8 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 <img src="images/wMAccRun-20.png">
 
 ## 4. webMethods Accounts Workflow Configuration
+
+In this workflow, we will invoke Turbonomic APIs to fetch Energy concumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
 
 #### 4.1. Login to webMethods Integration
 
@@ -567,6 +569,8 @@ Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconn
 - IBM Envizi ESG Suite https://www.ibm.com/docs/en/envizi-esg-suite
 
 - Integrate your ESG Data into Envizi using Integration Hub	https://developer.ibm.com/tutorials/awb-envizi-integration-hub/
+
+- Sign up for webMethods SaaS Trial https://signup.softwareag.cloud/#/basic-b
 
 
 #### Tags
