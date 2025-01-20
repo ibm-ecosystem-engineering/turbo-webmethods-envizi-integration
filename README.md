@@ -26,7 +26,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 ## 2. Architecture
 
-Here is the architecture  that describes about this Turbo and Envizi integration.
+Here is the architecture  that describes about this Turbo and Envizi integration via webMethods.
 
 webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Centers from Turbo and sends it to Envizi's S3 bucket in a CSV file. This CSV file will be further processed by the Envizi internally.
 
@@ -35,6 +35,8 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 ## 3. webMethods Locations Workflow Configuration
 
 In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations and transform the JSON API response into the XLS template expected by Envizi.
+
+<details><summary>CLICK me for detailed instructions</summary>
 
 #### 3.1. Login to webMethods Integration
 
@@ -247,9 +249,14 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 
 <img src="images/wMAccRun-20.png">
 
+
+</details>
+
 ## 4. webMethods Accounts Workflow Configuration
 
 In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
+
+<details><summary>CLICK mme for detailed instructions</summary>
 
 #### 4.1. Login to webMethods Integration
 
@@ -494,7 +501,12 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccRun-22.png">
 
+
+</details>
+
 ## 5. Validate Workflow Execution
+
+<details><summary>CLICK me for detailed instructions</summary>
 
 #### 5.1. Data in S3
 
@@ -534,9 +546,13 @@ Locations and Accounts workflow can be scheduled for execution. Follow the steps
 
 - Save the workflow and it will execute automatically as per the defined schedule.
 
+</details>
+
 ## Appendix
 
 ### 1. Create User in Turbonomoic User
+
+
 
 1. Create a new Local user in Turbonomoic by choosing the below menu option.
 
