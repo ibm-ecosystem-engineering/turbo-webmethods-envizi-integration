@@ -22,9 +22,9 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 ## 1. Prerequisite
 
 - Turbonomic v8.14.3 or higher 
-- A user with `Observer` role in Turbonomic. (Refer [here](#user-content-1-create-user-in-turbonomoic-user) to create the bucket)
-- webMethods SaaS or on-prem
+- A user with `Observer` role in Turbonomic. (Refer [here](#user-content-1-create-user-in-turbonomoic-user) to create the user)
 - Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
+- webMethods SaaS or on-prem
 
 ## 2. Architecture
 
@@ -563,8 +563,6 @@ Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconn
 - Creating Envizi S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
 
 - Getting started with the Turbonomic REST API : https://www.ibm.com/docs/en/tarm/8.13.6?topic=reference-getting-started-turbonomic-rest-api
-
-- IBM Envizi ESG Suite https://www.ibm.com/docs/en/envizi-esg-suite
 
 - IBM Envizi ESG Suite https://www.ibm.com/docs/en/envizi-esg-suite
 
