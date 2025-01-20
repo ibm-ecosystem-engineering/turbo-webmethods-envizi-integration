@@ -17,6 +17,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [5. webMethods Locations Workflow Configuration](#5-webMethods-Locations-Workflow-Configuration)
 - [6. webMethods Accounts Workflow Configuration](#6-webMethods-Accounts-Workflow-Configuration)
 - [7. Validate Workflow Execution](#7-Validate-Workflow-Execution)
+- [8. Schedule Workflow Execution](#8-Schedule-Workflow-Execution)
 
 ## 1. Prerequisite
 
@@ -549,6 +550,24 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/image-16.png">
 <img src="images/image-17.png">
+
+## 8. Schedule Workflow Execution
+
+Locations and Accounts workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
+
+- Mouse over the `triger` node in the workflow and click on `Settings`
+
+<img src="images/sec8-trigger.png">
+
+- From the Trigger window, search and select `Clock` and `Next`
+
+<img src="images/sec8-clock1.png">
+
+- Change the settings to define the schedule for flow execution and click `Done`
+
+<img src="images/sec8-clocksettings.png">
+
+- Save the workflow and it will execute automatically as per the defined schedule.
 
 ## Reference
 
