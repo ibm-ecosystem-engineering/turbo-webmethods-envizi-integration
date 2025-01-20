@@ -249,7 +249,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 
 ## 4. webMethods Accounts Workflow Configuration
 
-In this workflow, we will invoke Turbonomic APIs to fetch Energy concumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
+In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
 
 #### 4.1. Login to webMethods Integration
 
@@ -533,12 +533,6 @@ Locations and Accounts workflow can be scheduled for execution. Follow the steps
 <img src="images/sec8-clocksettings.png">
 
 - Save the workflow and it will execute automatically as per the defined schedule.
-
-## Reference
-
-Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
-
-Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconnect-flows
 
 ## Appendix
 
