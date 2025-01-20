@@ -20,8 +20,8 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 ## 1. Prerequisite
 
 - Turbonomic v8.14.3 or higher 
-- A user with `Observer` role in Turbonomic. (Refer [here](#user-content-1-create-user-in-turbonomoic-user) to create the user)
-- Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
+- Turbonomic user with `Observer` role in. (Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user)
+- Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket). Make a note of the values of the `Bucket`, `Folder`, `UserName`, `Access Key` and `Secret Access Key` for further reference.
 - webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial) or on-prem 
 
 ## 2. Architecture
@@ -212,17 +212,18 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 - Fill the details as below
 - Select action: `S3 Upload File`
 - Name: `S3 Upload File` .  Name can be updated as per need.
-- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 5.4
+- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 3.4
 - Click `Next`
 
 <img src="images/wMLoc-S3Upload-16.png">
 
 #### Bucket Name and other configuration
 
-- Pleaes note AWS S3 bucket details provided as part of step 4
+The AWS S3 bucket details noted as part of the pre-requisite is used here.
+
 - Upload File: `Content`
 - Raw Data: Drap and Drop the `XLSX Data(Binary)` under suscsvtoxl
-- Bucket Name: s3 bucket name provided in step 4
+- Bucket Name: s3 bucket name (noted as part of pre-requisite)
 - File Name: Folder/filename provided in step 4. File name format as Envizi_SetupConfig_G5_YYYYMMDD.xlsx
 - ACL: `bucket-owner-full-control`
 - Region: region provided in step 4
@@ -464,17 +465,18 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 - Fill the details as below
 - Select action: `S3 Upload File`
 - Name: `S3 Upload File` .  Name can be updated as per need.
-- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 5.4
+- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 4.4
 - Click `Next`
 
 <img src="images/wMAccS3Upload-18.png">
 
 #### Bucket Name and other configuration
 
-- Pleaes note AWS S3 bucket details provided as part of step 4
+The AWS S3 bucket details noted as part of the pre-requisite is used here.
+
 - Upload File: `Content`
 - Raw Data: Drap and Drop the `csv` under `JSON to CSV`
-- Bucket Name: s3 bucket name provided in step 4
+- Bucket Name: s3 bucket name (noted as part of pre-requisite)
 - File Name: Folder/filename provided in step 4. File name format as Account_Setup_and_Data_Load_IBMCloud_electricity.csv
 - ACL: `bucket-owner-full-control`
 - Region: region provided in step 4
@@ -555,10 +557,11 @@ Locations and Accounts workflow can be scheduled for execution. Follow the steps
 
 ## Appendix
 
-### 1. Create User in Turbonomoic User
+### 1. Create User in Turbonomoic
+
+Let us create a local user in Turbonomic with the `Observer` role.
 
 <details><summary>CLICK me for detailed instructions</summary>
-
 
 1. Create a new Local user in Turbonomoic by choosing the below menu option.
 
