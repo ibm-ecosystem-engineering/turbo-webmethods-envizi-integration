@@ -528,9 +528,14 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 <img src="images/image-16.png">
 <img src="images/image-17.png">
 
+</details>
+
 ## 6. Schedule Workflow Execution
 
 Locations and Accounts workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
+
+<details><summary>CLICK me for detailed instructions</summary>
+
 
 - Mouse over the `Trigger` node in the workflow and click on `Settings`
 
@@ -552,6 +557,7 @@ Locations and Accounts workflow can be scheduled for execution. Follow the steps
 
 ### 1. Create User in Turbonomoic User
 
+<details><summary>CLICK me for detailed instructions</summary>
 
 
 1. Create a new Local user in Turbonomoic by choosing the below menu option.
@@ -569,6 +575,8 @@ Locations and Accounts workflow can be scheduled for execution. Follow the steps
 4. User gets created.
 
 <img src="images/image-1-usr13.png">
+
+</details>
 
 ### 2. Reference
 
