@@ -22,8 +22,9 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 ## 1. Prerequisite
 
 - Turbonomic v8.14.3 or higher 
+- A user with `Observer` role in Turbonomic. webMethods needs this user to fetch data from Turbo.  (refer ### 1. Create User in Turbonomoic User section in the Appendix section)
 - webMethods SaaS or on-prem
-- Envizi's S3 bucket 
+- Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
 
 ## 2. Architecture
 
@@ -33,65 +34,27 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 
 <img src="images/arch.png">
 
-## 3. Turbonomic Configuration
+## 3. webMethods Locations Workflow Configuration
 
-### Mandatory Configuration
-
-- Create a user with `Observer` role in Turbo. webMethods needs this user to fetch data from Turbo. 
-
-### Optional Configuration 
-
-- Add the following Tag in vCenter and add their values as tags to the Data Centers for accurate emission calculations from Envizi:
-    - `Country`: Name of Country
-    - `Latitude`: Latitude in Decimal Degrees format
-    - `Longitude`: Longitude in Decimal Degrees format
-    <img src="images/turbo-tag.png">
-
-- By default, Envizi will use the Data Center name configured in Turbonomic/vCenter. To change this, Tag Category `EnviziAlternateName` can be added with the desired display name as its value.
-- Envizi Locations (Data Centers in this case) need unique display names. If there are any Data Centers with same names, they should be changed from vCenter or Tag Category `EnviziAlternateName` should be added to the Data Center(s) with different name(s)
-
-**Note:** Tags sync from vCenter to Turbonomic might take upto 20 minutes.
-
-## 4. Envizi's S3 bucket 
-
-S3 bucket to be created in Envizi via Data Flow Automation. This S3 bucket details to be feed into the webMethods flow.
-
-1. Create S3 bucket in Envizi via the Data Services screen in Data flow Automation. 
-
-    Note the Accesskey and other details to use it later in webMethods.
-
-    <img src="images/image-12.png">
-
-    <img src="images/image-13.png">
-
-2. Create Data pipeline to associate the Data services to the file name pattern to integrate with Envizi.
-
-    <img src="images/image-14.png">
-
-
-The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV file format. Envizi will further process this CSV file.
-
-## 5. webMethods Locations Workflow Configuration
-
-#### 5.1. Login to webMethods Integration
+#### 3.1. Login to webMethods Integration
 
 - Login to your instance of webMethods integration with the respective credentials.
 
-#### 5.2. Create a new Project
+#### 3.2. Create a new Project
 
 - Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 5.3. Import the Workflows
+#### 3.3. Import the Workflows
 
 - Download the Workflow archive file here [Locations](./files/webMethods-archives/Locations).
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
-#### 5.4. Provide Workflow name, Workflow description, AWS service
+#### 3.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
@@ -100,13 +63,13 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLocWorkflow-04.png">
 
-#### 5.5. Configure the Workflow nodes
+#### 3.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
 <img src="images/wMLocationWorkflow.png">
 
-#### 5.5.1. Configure the node `Turbonomic API Login`
+#### 3.5.1. Configure the node `Turbonomic API Login`
 
 - Mouse over to `Turbonomic API Login` node and click on `Settings`
 - Click on `Next`
@@ -149,7 +112,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAcc-TAPILogin-04.png">
 
-#### 5.5.2. Configure the node `DataCentre Retrieve`
+#### 3.5.2. Configure the node `DataCentre Retrieve`
 
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
@@ -174,7 +137,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-TRet-07.png">
 
-#### 5.5.3. Configure the node `Query JSON`
+#### 3.5.3. Configure the node `Query JSON`
 
 - Mouse over to `Query JSON` node and click on `Settings`
 - Click on `Next`
@@ -192,7 +155,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-QJson-09.png">
 
-#### 5.5.4. Configure the node `mapRequest`
+#### 3.5.4. Configure the node `mapRequest`
 
 - This is a flow service which customize and maps the request to the custom output. For example selecting specific columns, hard-coding the selected columns etc.,
 - Mouse over to `mapRequest` node and click on `Settings`
@@ -208,7 +171,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-mReq-11.png">
 
-#### 5.5.5. Configure the node `JSON to CSV`
+#### 3.5.5. Configure the node `JSON to CSV`
 
 - Mouse over to `JSON to CSV` node and click on `Settings`
 - Click on `Next`
@@ -224,7 +187,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-JCSV-13.png">
 
-#### 5.5.6. Configure the node `suscsvtoxl`
+#### 3.5.6. Configure the node `suscsvtoxl`
 
 - This is a customized connector which transform the CSV format into xlsx format.
 - Mouse over to `suscsvtoxl` node and Click on `Settings`
@@ -240,7 +203,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-CSVTOXL-15.png">
 
-#### 5.5.7. Configure the node `S3 Upload File`
+#### 3.5.7. Configure the node `S3 Upload File`
 
 - Mouse over to `S3 Upload File` node and Click on `Settings`
 - Click on `Next`
@@ -272,39 +235,39 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMLoc-S3Upload-18.png">
 
-#### 5.6. Activate the Workflow
+#### 3.6. Activate the Workflow
 
 - Toggle `ON` the workflow to activate
 
 <img src="images/wMAccToggleON-19.png">
 
-#### 5.7. Run the Workflow
+#### 3.7. Run the Workflow
 
 - Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
 <img src="images/wMAccRun-20.png">
 
-## 6. webMethods Accounts Workflow Configuration
+## 4. webMethods Accounts Workflow Configuration
 
-#### 6.1. Login to webMethods Integration
+#### 4.1. Login to webMethods Integration
 
 - Login to your instance of webMethods integration with the respective credentials.
 
-#### 6.2. Create a new Project
+#### 4.2. Create a new Project
 
 - Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 6.3. Import the Workflows
+#### 4.3. Import the Workflows
 
 - Download the Workflow archive file here [Accounts](./files/webMethods-archives/Accounts).
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
-#### 6.4. Provide Workflow name, Workflow description, AWS service
+#### 4.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
@@ -315,13 +278,13 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
-#### 6.5. Configure the Workflow nodes
+#### 4.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
 <img src="images/wMAccWorkflow-02.png">
 
-#### 6.5.1. Configure the node `Turbonomic API Login`
+#### 4.5.1. Configure the node `Turbonomic API Login`
 
 - Mouse over to `Turbonomic API Login` node and click on `Settings`
 - Click on `Next`
@@ -362,7 +325,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccTAPILogin-05.png">
 
-#### 6.5.2. Configure the node `DataCentre Retrieve`
+#### 4.5.2. Configure the node `DataCentre Retrieve`
 
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
@@ -393,7 +356,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccDTRet-07.png">
 
-#### 6.5.3. Configure the node `DC Accounts Stats`
+#### 4.5.3. Configure the node `DC Accounts Stats`
 
 - Mouse over to `DC Accounts Stats` node and click on `Settings`
 - Click on `Next`
@@ -432,7 +395,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccDTStat-11.png">
 
-#### 6.5.4. Configure the node `Query JSON`
+#### 4.5.4. Configure the node `Query JSON`
 
 - Mouse over to `Query JSON` node and click on `Settings`
 - Click on `Next`
@@ -449,7 +412,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccQJSON-13.png">
 
-#### 6.5.5. Configure the node `AccountsMap`
+#### 4.5.5. Configure the node `AccountsMap`
 
 - Mouse over to `AccountsMap` node and click on `Settings`
 - Click on `Next`
@@ -466,7 +429,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccAMap-15.png">
 
-#### 6.5.6. Configure the node `JSON to CSV`
+#### 4.5.6. Configure the node `JSON to CSV`
 
 - Mouse over to `JSON to CSV` node and click on `Settings`
 - Click on `Next`
@@ -485,7 +448,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
  <img src="images/wMAccJCSV-17.png">
 
- #### 6.5.7. Configure the node `S3 Upload File`
+ #### 4.5.7. Configure the node `S3 Upload File`
 
 - Mouse over to `S3 Upload File` node and Click on `Settings`
 - Click on `Next`
@@ -517,31 +480,31 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 <img src="images/wMAccS3Upload-20.png">
 
-#### 6.6. Activate the Workflow
+#### 4.6. Activate the Workflow
 
 - Toggle `ON` to activate the Workflow
 
 <img src="images/wMAccAct-21.png">
 
-#### 6.7. Run the Workflow
+#### 4.7. Run the Workflow
 
 - Run the Workflow to push the DataCentre electricity consumption stats to Envizi
 
 <img src="images/wMAccRun-22.png">
 
-## 7. Validate Workflow Execution
+## 5. Validate Workflow Execution
 
-#### 7.1. Data in S3
+#### 5.1. Data in S3
 
 - The flows will pull the data from the Turbo and push it to S3. You can see the Data flow status in S3 like this.
 
 <img src="images/image-11.png">
 
-#### 7.2. Sample Data from S3
+#### 5.2. Sample Data from S3
 
 - The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 7.3. Processing S3 files in Envizi
+#### 5.3. Processing S3 files in Envizi
 
 - Envizi automatically pull the data from S3 and process it. The accounts and account summary page looks like this now.
 
@@ -551,7 +514,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 <img src="images/image-16.png">
 <img src="images/image-17.png">
 
-## 8. Schedule Workflow Execution
+## 6. Schedule Workflow Execution
 
 Locations and Accounts workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
 
@@ -576,6 +539,25 @@ Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Softwar
 Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconnect-flows
 
 ## Appendix
+
+### 1. Create User in Turbonomoic User
+
+1. Create a new Local user in Turbonomoic by choosing the below menu option.
+
+`Home > SETTINGS > Local User >  New Local User`
+
+<img src="images/image-1-usr11.png">
+
+2. User name could be `demo_observer`, give some password and choose role as `Observer`
+
+3. Click `Save` button
+
+<img src="images/image-1-usr12.png">
+
+4. User gets created.
+
+<img src="images/image-1-usr13.png">
+
 
 #### Tags 
 #envizi
