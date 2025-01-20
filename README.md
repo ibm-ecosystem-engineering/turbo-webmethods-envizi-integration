@@ -555,7 +555,7 @@ The webMethods flow pulls the data from Turbo and sends it to S3 bucket in a CSV
 
 Locations and Accounts workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
 
-- Mouse over the `triger` node in the workflow and click on `Settings`
+- Mouse over the `Trigger` node in the workflow and click on `Settings`
 
 <img src="images/sec8-trigger.png">
 
