@@ -57,7 +57,7 @@ S3 bucket to be created in Envizi via Data Flow Automation. This S3 bucket detai
 
 1. Create S3 bucket in Envizi via the Data Services screen in Data flow Automation. 
 
-Note the Accesskey and other details to use it later in webMethods.
+    Note the Accesskey and other details to use it later in webMethods.
 
     <img src="images/image-12.png">
 
