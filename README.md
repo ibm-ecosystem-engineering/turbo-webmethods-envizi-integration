@@ -583,6 +583,10 @@ Let us create a local user in Turbonomic with the `Observer` role.
 
 ### 2. Reference
 
+- Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
+
+- Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconnect-flows
+
 - Creating Envizi S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
 
 - Getting started with the Turbonomic REST API : https://www.ibm.com/docs/en/tarm/8.13.6?topic=reference-getting-started-turbonomic-rest-api
