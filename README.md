@@ -160,6 +160,18 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 #### 3.5.4. Configure the node `mapRequest`
 
 - This is a flow service which customize and maps the request to the custom output. For example selecting specific columns, hard-coding the selected columns etc.,
+- In this step the data transformation performed on the responseObject of the DataCenter types API `https://[Turbo-URL]/api/v3/search?types=DataCenter` against the Envizi expected format/columns.
+#### Mapped Columns
+- `displayName`: `LOCATION`
+- `Country[]` under tags: `COUNTRY`
+- `Latitude[]` under tags: `LATITUDE Y`
+- `Longitude` under tags: `LONGITUDE X`
+
+#### Hard-Coded Columns
+- `ORGANIZATION`, `GROUP TYPE`, `GROUP HIERARCHY NAME`, `GROUP NAME 1`, `GROUP NAME 2`, `GROUP NAME 3`, `LOCATION TYPE`, `LOCATION REFERENCE`, `LOCATION REF NO`, `LOCATION ID`, `STREET ADDRESS`, `CITY`, `STATE PROVINCE`, `POSTAL CODE`, `LOCATION CLOSE DATE`
+
+<img src="images/dataTransformMap.png">
+
 - Mouse over to `mapRequest` node and click on `Settings`
 - Click on `Next`
 - In the `Action configure` page drag and drop `Query JSON` object in the `request` at mapRequest.
