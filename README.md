@@ -38,25 +38,25 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-#### 3.1. Login to webMethods Integration
+### 3.1. Login to webMethods Integration
 
 - Login to your instance of webMethods integration with the respective credentials.
 
-#### 3.2. Create a new Project
+### 3.2. Create a new Project
 
 - Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 3.3. Import the Workflows
+### 3.3. Import the Workflows
 
 - Download the Workflow archive file here [Locations](./files/webMethods-archives/Locations).
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
-#### 3.4. Provide Workflow name, Workflow description, AWS service
+### 3.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Locations` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
@@ -65,7 +65,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 
 <img src="images/wMLocWorkflow-04.png">
 
-#### 3.5. Configure the Workflow nodes
+### 3.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
@@ -95,7 +95,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch DataCenter locations a
 
 #### Body
 
-- Note: `username` and `password` to access the Turbonomic API's can be created using link [User-Creation](https://github.com/GandhiCloudLab/turbonomic-api)
+- Note: `username` and `password` to access the Turbonomic API's are created as pre-requisite.
 - Under `Body 1` Name & Value to be updated
 - Name: `username`
 - Value: `Value of the username`
@@ -238,13 +238,13 @@ The AWS S3 bucket details noted as part of the pre-requisite is used here.
 
 <img src="images/wMLoc-S3Upload-18.png">
 
-#### 3.6. Activate the Workflow
+### 3.6. Activate the Workflow
 
 - Toggle `ON` the workflow to activate
 
 <img src="images/wMAccToggleON-19.png">
 
-#### 3.7. Run the Workflow
+### 3.7. Run the Workflow
 
 - Click on the run the workflow to generate the location feed and push the feed to AWS S3 bucket.
 
@@ -259,25 +259,25 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <details><summary>CLICK mme for detailed instructions</summary>
 
-#### 4.1. Login to webMethods Integration
+### 4.1. Login to webMethods Integration
 
 - Login to your instance of webMethods integration with the respective credentials.
 
-#### 4.2. Create a new Project
+### 4.2. Create a new Project
 
 - Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-#### 4.3. Import the Workflows
+### 4.3. Import the Workflows
 
 - Download the Workflow archive file here [Accounts](./files/webMethods-archives/Accounts).
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
-#### 4.4. Provide Workflow name, Workflow description, AWS service
+### 4.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
@@ -288,7 +288,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
-#### 4.5. Configure the Workflow nodes
+### 4.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
@@ -316,7 +316,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### Body
 
-- Note: `username` and `password` to access the Turbonomic API's can be created using link [User-Creation](https://github.com/GandhiCloudLab/turbonomic-api)
+- Note: `username` and `password` to access the Turbonomic API's are created as pre-requisite.
 - Under `Body 1` Name & Value to be updated
 - Name: `username`
 - Value: `Value of the username`
@@ -353,7 +353,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### Headers
 
-- Under `Headers` 'Headers 1' Key & Value to be provided
+- Under `Headers > Headers 1` Key & Value to be provided
 - Key: `Cookie`
 - Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
 - Click on `Next`
@@ -491,13 +491,13 @@ The AWS S3 bucket details noted as part of the pre-requisite is used here.
 
 <img src="images/wMAccS3Upload-20.png">
 
-#### 4.6. Activate the Workflow
+### 4.6. Activate the Workflow
 
 - Toggle `ON` to activate the Workflow
 
 <img src="images/wMAccAct-21.png">
 
-#### 4.7. Run the Workflow
+### 4.7. Run the Workflow
 
 - Run the Workflow to push the DataCentre electricity consumption stats to Envizi
 
