@@ -19,10 +19,16 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 ## 1. Prerequisite
 
+### 1.1 Environment
+
 - Turbonomic v8.14.3 or higher 
 - Turbonomic user with `Observer` role in. (Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user)
 - Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket). Make a note of the values of the `Bucket`, `Folder`, `UserName`, `Access Key` and `Secret Access Key` for further reference.
 - webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial) or on-prem 
+
+### 1.1 Envizi Organization hierarchy details
+ -  Following the steps in this article, we would be retreiving the electricity data of the Datacenter using the Turbo APIs. To proceed with the actually integration, we need to have the data center location and the relevant accounts to hold the electricity data to be pre-configured.  In this article we are using the below pre-configured organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity
+  <img src="images/GSI_Demo_WM_Envizi_Org_1.png">
 
 ## 2. Architecture
 
@@ -275,7 +281,7 @@ The AWS S3 bucket details noted as part of the pre-requisite is used here.
 
 In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
 
-<details><summary>CLICK mme for detailed instructions</summary>
+<details><summary>CLICK me for detailed instructions</summary>
 
 ### 4.1. Login to webMethods Integration
 
