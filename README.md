@@ -27,7 +27,9 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial) or on-prem 
 
 ### 1.1 Envizi Organization hierarchy details
- -  Following the steps in this article, we would be retreiving the electricity data of the Datacenter using the Turbo APIs. To proceed with the actually integration, we need to have the data center location and the relevant accounts to hold the electricity data to be pre-configured.  In this article we are using the below pre-configured organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity
+ -  Following the steps in this article, we would be retreiving the electricity data of the Datacenter using the Turbo APIs.
+ -  To proceed with the actually integration, we need to have the data center location and the relevant accounts to hold the electricity data to be pre-configured in Envizi.  Hence, in this article, we are using the below organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity
+ -  
   <img src="images/GSI_Demo_WM_Envizi_Org_1.png">
 
 ## 2. Architecture
