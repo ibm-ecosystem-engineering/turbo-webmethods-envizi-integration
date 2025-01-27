@@ -28,9 +28,11 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 ### 1.1 Envizi Organization hierarchy details
  -  Following the steps in this article, we would be retreiving the electricity data of the Datacenter using the Turbo APIs.
- -  To proceed with the actually integration, we need to have the data center location and the relevant accounts to hold the electricity data to be pre-configured in Envizi.  Hence, in this article, we are using the below organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity
- -  
+ -  To proceed with the actually integration, we need to have the data center location and the relevant accounts to hold the electricity data to be pre-configured in Envizi.  Hence, in this article, we are using the below organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity. 
+
+ -  Feel free to use your own hierarchy, location and account names and make sure to update the same in the configurations below whereever required. 
   <img src="images/GSI_Demo_WM_Envizi_Org_1.png">
+
 
 ## 2. Architecture
 
