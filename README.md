@@ -90,8 +90,8 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 <img src="images/wMAccWorkflow-01.png">
 
 #### Add Reference Data
-- Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/)which needs to be added after importing the Workflow in a project.
-- Under the project reated in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
+- Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/) which needs to be added after importing the Workflow in a project.
+- Under the project created in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
 - `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
@@ -102,7 +102,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccWorkflow-02.png">
 
-#### 4.5.1. Configure the node `Turbonomic API Login`
+#### 3.5.1. Configure the node `Turbonomic API Login`
 
 - Configurations for all the nodes are already available when the Workflow is imported, However each node needs to be tested.
 
@@ -116,7 +116,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccTAPILogin-05.png">
 
-#### 4.5.2. Configure the node `DataCentre Retrieve`
+#### 3.5.2. Configure the node `DataCentre Retrieve`
 
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
@@ -126,7 +126,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Click on `Test` button to see if the DataCentre Retrieval is successful and Click on `Done` button once it is success.
 
-<img src="images/wMAccDTRet-07.png">
+<img src="images/wMAccDTRet-06.png">
 
 #### 4.5.3. Configure the node `DC Accounts Stats`
 
