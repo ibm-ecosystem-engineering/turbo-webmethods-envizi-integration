@@ -43,11 +43,11 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 
 ## 3. webMethods Accounts Workflow Configuration
 
-In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template expected by Envizi.
+In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template loaded by Envizi.
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-### 4.1. Login to webMethods Integration
+### 3.1. Login to webMethods Integration
 
 - Login to your instance of webMethods integration with the respective credentials.
 
@@ -67,7 +67,11 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 ### 4.4. Provide Workflow name, Workflow description, AWS service
 
-- Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name the `Workflow name` and `Workflow description` as per your need.
+- Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name `Workflow name` and `Workflow description` as per your need.
+- Parameters custom `key-value pairs` used inside the Workflow.
+#### Parameters
+| Name       | Value                   | Comments             |
+| ---------- | ----------------------- | --------------------
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
 - Click on `Import` button
