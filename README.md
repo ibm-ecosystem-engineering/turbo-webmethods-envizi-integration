@@ -82,8 +82,9 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 | DCNames | IBMCloud | Engizi provies the Data Centre names to be retrieved |
 | TurboPassword | | The password set for the `TurboUserName` created above.|
 
+- For the `Connect to Hypertext Transfer Protocol (HTTP)` configuration details, please click on `+` symbol and provide URL as `https://sales1.demo.turbonomic.com/api/v3/entities/stats` under `URL`. Leave other fields as it is.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
-- Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
+- Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`. Leave other fields as it is.
 - Click on `Import` button
 
 <img src="images/wMAccWorkflow-01.png">
