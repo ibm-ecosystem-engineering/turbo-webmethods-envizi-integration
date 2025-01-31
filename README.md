@@ -73,6 +73,8 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
 | TurboLoginAPI| https://sales1.demo.turbonomic.com/api/v3/login |
+| TurboAccountStatsAPI| https://sales1.demo.turbonomic.com/api/v3/entities/ |
+| TurboUserName||User needs to be created to be able to access the Tubonomic API's.  Follow the "Create User in Turbonomoic" under APPENDIX bottom of this page|
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
 - Click on `Import` button
