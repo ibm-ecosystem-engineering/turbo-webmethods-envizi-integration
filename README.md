@@ -72,9 +72,16 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 #### Parameters
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
-| TurboLoginAPI| https://sales1.demo.turbonomic.com/api/v3/login |
-| TurboAccountStatsAPI| https://sales1.demo.turbonomic.com/api/v3/entities/ |
+| TurboLoginAPI| https://sales1.demo.turbonomic.com/api/v3/login | Turbonomic Login API|
+| TurboAccountStatsAPI| https://sales1.demo.turbonomic.com/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption|
 | TurboUserName||User needs to be created to be able to access the Tubonomic API's.  Follow the "Create User in Turbonomoic" under APPENDIX bottom of this page|
+| S3BucketName| | S3 Bucket name provided by Envizi team|
+| EnviziTemplateFileName | S3 Folder/Filename | S3 Folder name and File name provided by Ennizi team|
+| TurboDataCentresAPI|https://sales1.demo.turbonomic.com/api/v3/search|  Fetches the data centres locations from Turbomic|
+| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| JSON body to be sent to retrieve the Energy for the Data Centres. statDate and endDate are the dates for which the Energcy consumption retrieved|
+| DCNames | IBMCloud | Engizi provies the Data Centre names to be retrieved |
+| TurboPassword | | The password set for the `TurboUserName` created above.|
+
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`.
 - Click on `Import` button
