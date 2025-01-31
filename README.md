@@ -51,21 +51,21 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Login to your instance of webMethods integration with the respective credentials.
 
-### 4.2. Create a new Project
+### 3.2. Create a new Project
 
 - Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
 
-### 4.3. Import the Workflows
+### 3.3. Import the Workflows
 
 - Download the Workflow archive file here [Accounts](./files/webMethods-archives/Accounts).
 - Click on the `Import` and select the Workflow location that is downloaded in the above step.
 
 <img src="images/wMAccImport-03.png">
 
-### 4.4. Provide Workflow name, Workflow description, AWS service
+### 3.4. Provide Workflow name, Workflow description, AWS service
 
 - Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name `Workflow name` and `Workflow description` as per your need.
 - Parameters custom `key-value pairs` used inside the Workflow.
@@ -89,9 +89,14 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccWorkflow-01.png">
 
+#### Add Reference Data
+- Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/)which needs to be added after importing the Workflow in a project.
+- Under the project reated in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
+- `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
+
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
-### 4.5. Configure the Workflow nodes
+### 3.5. Configure the Workflow nodes
 
 - In this step Workflow nodes configuration needs to be updated.
 
@@ -99,38 +104,11 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### 4.5.1. Configure the node `Turbonomic API Login`
 
+- Configurations for all the nodes are already available when the Workflow is imported, However each node needs to be tested.
+
 - Mouse over to `Turbonomic API Login` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure` page choose as below
-- Select HTTP Method: `POST`
-- URL: `https://[Tubonomic-URL]]/api/v3/login?hateoas=true`
-
-#### URL Params
-
-- Under `URL Param 1` Key and Value to be updated
-- Key: `hateoas`
-- Value: `true`
-
-<img src="images/wMAccTAPILogin-03.png">
-
-#### Set Body Type
-
-- Set Body Type: `multipart-form-data`
-
-#### Body
-
-- Note: `username` and `password` to access the Turbonomic API's are created as pre-requisite.
-- Under `Body 1` Name & Value to be updated
-- Name: `username`
-- Value: `Value of the username`
-- Under `Body 2` Name & Value to be updated
-- Name: `password`
-- Value: `Value of the password`
-
-- Rest of the values to be left as is.
-- Click on `Next`
-
-<img src="images/wMAccTAPILogin-04.png">
+- In the `Action configure`, Click on `Next`
 
 #### Test this action
 
@@ -142,26 +120,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure` page choose as below
-- Select HTTP Method: `GET`
-- URL: `https://[Turbonomic-URL]]/api/v3/search?types=DataCenter`
-
-#### URL Params
-
-- Provide `Key` and `Value` under 'URL Param 1'
-- Key: `types`
-- Value: `DataCentre`
-
-<img src="images/wMAccDTRet-06.png">
-
-#### Headers
-
-- Under `Headers > Headers 1` Key & Value to be provided
-- Key: `Cookie`
-- Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
-- Click on `Next`
-
-<img src="images/wMAccDTRet-07.png">
+- In the `Action configure`, Click on `Next`
 
 #### Test this action
 
