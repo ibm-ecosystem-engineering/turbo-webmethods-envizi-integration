@@ -13,8 +13,8 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - [1. Prerequisite](#1-Prerequisite)
 - [2. Architecture](#2-Architecture)
 - [3. webMethods Accounts Workflow Configuration](#3-webMethods-Accounts-Workflow-Configuration)
-- [4. Validate Workflow Execution](#5-Validate-Workflow-Execution)
-- [5. Schedule Workflow Execution](#6-Schedule-Workflow-Execution)
+- [4. Validate Workflow Execution](#4-Validate-Workflow-Execution)
+- [5. Schedule Workflow Execution](#5-Schedule-Workflow-Execution)
 
 ## 1. Prerequisite
 
@@ -120,7 +120,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Mouse over to `DataCentre Retrieve` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure`, Click on `Next`
+- In the `Action configure`, page Click on `Next`
 
 #### Test this action
 
@@ -128,130 +128,78 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccDTRet-06.png">
 
-#### 4.5.3. Configure the node `DC Accounts Stats`
+#### 3.5.3. Configure the node `JSON Parse`
 
-- Mouse over to `DC Accounts Stats` node and click on `Settings`
+- Mouse over to `JSON Parse` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure` page choose as below
-- Select HTTP Method: `POST`
-- URL: `https://[Turbonomic-URL]]/api/v3/entities/{{$a3.responseObject.0.uuid}}/stats` . Note {{$a3.responseObject.0.uuid}} is the `uuid` from preveious API call which can be drag and drop from `responseObject` under `DataCentre Retrieve` as shown below
-
-<img src="images/wMAccDTStat-09.png">
-
-#### Headers
-
-- Under `Headers` Headers 1 Key & Value to be provided
-- Key: `Cookie`
-- Value: Drag and drop the `set-cookie` from the `Turbonomic API Login` node as shown in the screen
-
-#### Set Body Type and Body
-- Set Body Type: `JSON`
-- Body: `{"data":{
-"startDate":"2024-12-06 00:00:05", "endDate": "2024-12-10 23:59:59","statistics": [
-{
-"name": "Energy",
-"filters": [
-{
-"type": "relation",
-"value": "sold"
-}]}]}}`
-- Please note: The `startDate` and `endDate` has to be updated edited to retrieve the stats.
-- Click on `Next`
-- The rest of the values to be left as is.
-
-<img src="images/wMAccDTStat-10.png">
+- In the `Action configure` page CLick on `Next`
 
 #### Test this action
 
-- Click on `Test` button to see if the DC Accounts Stats is successful and Click on `Done` button once it is success.
+- Click on `Test` button to see if the `JSON Parse` is successful and Click on `Done` button once it is success.
 
-<img src="images/wMAccDTStat-11.png">
+<img src="images/wMAccJParse-07.png">
 
-#### 4.5.4. Configure the node `Query JSON`
+#### 3.5.4. Configure the node `Query JSON`
 
 - Mouse over to `Query JSON` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure` page choose as below
-- JSON Data: Drag and Drop the `DC Accounts Stats` onto `JSON Data`
-- JSON Path Expression: `responseObject`
-- Click on `Next`
-
-<img src="images/wMAccQJSON-12.png">
+- In the `Action configure` page click on `Next`
 
 #### Test this action
 
-- Click on `Test` button to see if the `Query JSON` is successful and Click on `Done` button once it is success.
+ Click on `Test` button to see if the `Query JSON` is successful and Click on `Done` button once it is success.
 
-<img src="images/wMAccQJSON-13.png">
+<img src="images/wMAccQJSON-08.png">
 
-#### 4.5.5. Configure the node `AccountsMap`
+#### 3.5.5. Configure the node `Query JSON`
 
-- Mouse over to `AccountsMap` node and click on `Settings`
+- Mouse over to `Query JSON` node and click on `Settings`
 - Click on `Next`
-- In the `Action configure` page choose as below
-- under `AccountsMap`
-- request: Drag and Drop of `Query JSON`
-- Click on `Next`
-
-<img src="images/wMAccAMap-14.png">
-
-#### Test this action
-
- Click on `Test` button to see if the `AccountsMap` is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccAMap-15.png">
-
-#### 4.5.6. Configure the node `JSON to CSV`
-
-- Mouse over to `JSON to CSV` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure` page choose as below
-- under `JSON to CSV`
-- Input JSON: Drag and Drop `response` from AccountsMap
-- Header Type: `Key`
-- Rest of the values leave as is.
-- CLick on `Next`
-
-<img src="images/wMAccJCSV-16.png">
+- In the `Action configure` page click on `Next`
 
 #### Test this action
 
  Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
 
- <img src="images/wMAccJCSV-17.png">
+ <img src="images/wMAccQJSON-09.png">
 
- #### 4.5.7. Configure the node `S3 Upload File`
+ #### 3.5.6. Configure the node `DCTest`
+
+ - Mouse over to `DCTest` node and Click on `Settings`
+- Click on `Next`
+- In the `Action configure` page click on `Next`
+
+#### Test this action
+
+ Click on `Test` button to see if the `DCTest` is successful and Click on `Done` button once it is success.
+
+ <img src="images/wMAccDCTest-10.png">
+
+ #### 3.5.6. Configure the node `JSON to CSV`
+
+- Mouse over to `JSON to CSV` node and Click on `Settings`
+- Click on `Next`
+- In the `Action configure` page click on `Next`
+
+#### Test this action
+
+ Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
+
+ <img src="images/wMAccJToCSV-11.png">
+
+
+ #### 3.5.8. Configure the node `S3 Upload File`
 
 - Mouse over to `S3 Upload File` node and Click on `Settings`
 - Click on `Next`
-- Fill the details as below
-- Select action: `S3 Upload File`
-- Name: `S3 Upload File` .  Name can be updated as per need.
-- Connect to Amazon Web Services: `AWS_1` . This is the AWS service created step 4.4
-- Click `Next`
-
-<img src="images/wMAccS3Upload-18.png">
-
-#### Bucket Name and other configuration
-
-The AWS S3 bucket details noted as part of the pre-requisite is used here.
-
-- Upload File: `Content`
-- Raw Data: Drap and Drop the `csv` under `JSON to CSV`
-- Bucket Name: s3 bucket name (noted as part of pre-requisite)
-- File Name: Folder/filename provided in step 4. File name format as Account_Setup_and_Data_Load_IBMCloud_electricity.csv
-- ACL: `bucket-owner-full-control`
-- Region: region provided in step 4
-- Content-Type: `text/csv`
-- Click `Next`
-
-<img src="images/wMAccS3Upload-19.png">
+- In the `Action configure` page click on `Next`
 
 #### Test this action
 
 - Click on `Test` button to see if the `S3 Upload File` is successful and Click on `Done` button once it is success.
 
-<img src="images/wMAccS3Upload-20.png">
+<img src="images/wMAccS3Upload-12.png">
 
 ### 4.6. Activate the Workflow
 
@@ -268,7 +216,7 @@ The AWS S3 bucket details noted as part of the pre-requisite is used here.
 
 </details>
 
-## 5. Validate Workflow Execution
+## 4. Validate Workflow Execution
 
 <details><summary>CLICK me for detailed instructions</summary>
 
@@ -294,7 +242,7 @@ The AWS S3 bucket details noted as part of the pre-requisite is used here.
 
 </details>
 
-## 6. Schedule Workflow Execution
+## 5. Schedule Workflow Execution
 
 Locations and Accounts workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
 
