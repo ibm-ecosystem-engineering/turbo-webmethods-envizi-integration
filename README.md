@@ -176,7 +176,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
  <img src="images/wMAccDCTest-10.png">
 
- #### 3.5.6. Configure the node `JSON to CSV`
+ #### 3.5.7. Configure the node `JSON to CSV`
 
 - Mouse over to `JSON to CSV` node and Click on `Settings`
 - Click on `Next`
@@ -201,17 +201,17 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccS3Upload-12.png">
 
-### 4.6. Activate the Workflow
+### 3.6. Activate the Workflow
 
 - Toggle `ON` to activate the Workflow
 
-<img src="images/wMAccAct-21.png">
+<img src="images/wMAccAct-13.png">
 
-### 4.7. Run the Workflow
+### 3.7. Run the Workflow
 
 - Run the Workflow to push the DataCentre electricity consumption stats to Envizi
 
-<img src="images/wMAccRun-22.png">
+<img src="images/wMAccRun-14.png">
 
 
 </details>
@@ -220,17 +220,17 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-#### 5.1. Data in S3
+#### 4.1. Data in S3
 
 - The flows will pull the data from the Turbo and push it to S3. You can see the Data flow status in S3 like this.
 
 <img src="images/image-11.png">
 
-#### 5.2. Sample Data from S3
+#### 4.2. Sample Data from S3
 
 - The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
 
-#### 5.3. Processing S3 files in Envizi
+#### 4.3. Processing S3 files in Envizi
 
 - Envizi automatically pull the data from S3 and process it. The accounts and account summary page looks like this now.
 
