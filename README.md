@@ -98,8 +98,8 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### Reference Data Columns
 
-|Name|Value|Comments|
-|------------------------|--------------------------||
+|Name                     |  Value               |Comments                  |
+|-------------------------|----------------------|--------------------------|
 |Organization Link|17000252| |
 |Organization|GSI Demos	| |
 |Location|IBMCloud| |
