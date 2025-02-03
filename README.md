@@ -90,11 +90,9 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 <img src="images/wMAccWorkflow-01.png">
 
 #### Add Reference Data
-- Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/) which needs to be added after importing the Workflow in a project.
-- Under the project created in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
-- `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
 
-<img src="images/wMAccRefdata.png">
+- Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/) which needs to be added after importing the Workflow in a project.
+- Please update the column values as Envizi recommends before adding it into Workflow.
 
 #### Reference Data Columns
 
@@ -123,6 +121,10 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 |Green Power (kWh)|| |
 |Total Cost|| |
 
+- Under the project created in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
+- `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
+
+<img src="images/wMAccRefdata.png">
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
@@ -134,14 +136,14 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### About Nodes
 
-- `Turbonomic API Login` :  HTTP built-in connector invokes Turbonomic instance login API which returns `set-cookie` which will be used in subsequent API calls.
-- `DataCentre Retrieve` : HTTP built-in connector invokes Turbonomic API which returns array list of DataCentre’s.
-- `JSON Parse` : built-in connector parses the JSON content.
-- `Query JSON` : built-in connector queries the JSON output.
-- `Query JSON` : built-in connector queries the responseObject data from `DataCentre Retrieve`.
+- `Turbonomic API Login` :  This makes an API call to Turbonomic instance login API which returns `set-cookie` and used to authrize the subsequent API calls.
+- `DataCentre Retrieve` : It invokes an API call to Turbonomic instance which returns array list of DataCentre’s.
+- `JSON Parse` : It formats statsFilter raw JSON data.
+- `Query JSON` : It retrieve JSON data from previous node.
+- `Query JSON` : It queries the responseObject JSON data from `DataCentre Retrieve`.
 - `DCTest` :  It is a flow-service which invokes the Turbonomic stats API to retrieve the electricity consumption and perform the data transformations as needed by Envizi.
-- `JSON to CSV` : built-in connector to format into a CSV file.
-- `S3 Upload File` :  Amazon Web Services built-in connector to push the data into S3 bucket.
+- `JSON to CSV` : This converts JSON data from flowservice into a CSV file.
+- `S3 Upload File` :  This node uploads the CSV file from previous node into S3 bucket from which Envizi loads into dashboard.
 
 ### 3.6. Activate the Workflow
 
