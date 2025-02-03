@@ -23,7 +23,7 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 - Turbonomic v8.14.3 or higher 
 - Turbonomic user with `Observer` role in. (Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user)
 - Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket). Make a note of the values of the `Bucket`, `Folder`, `UserName`, `Access Key` and `Secret Access Key` for further reference.
-- webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial) or on-prem 
+- webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial).
 
 ### 1.1 Envizi Organization hierarchy details
  -  Following the steps in this article, we would be retreiving the energy consumption (electricity) data of the Datacenter using the Turbo APIs.
@@ -72,17 +72,17 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 #### Parameters
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
-| TurboLoginAPI| https://sales1.demo.turbonomic.com/api/v3/login | Turbonomic Login API|
-| TurboAccountStatsAPI| https://sales1.demo.turbonomic.com/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption|
-| TurboUserName||User needs to be created to be able to access the Tubonomic API's.  Follow the "Create User in Turbonomoic" under APPENDIX bottom of this page|
-| S3BucketName| | S3 Bucket name provided by Envizi team|
-| EnviziTemplateFileName | S3 Folder/Filename | S3 Folder name and File name provided by Ennizi team|
-| TurboDataCentresAPI|https://sales1.demo.turbonomic.com/api/v3/search|  Fetches the data centres locations from Turbomic|
-| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| JSON body to be sent to retrieve the Energy for the Data Centres. statDate and endDate are the dates for which the Energcy consumption retrieved|
-| DCNames | IBMCloud | Engizi provies the Data Centre names to be retrieved |
-| TurboPassword | | The password set for the `TurboUserName` created above.|
+| TurboLoginAPI| https://[TurbonomicInstance-URL]/api/v3/login | Turbonomic Login API|
+| TurboAccountStatsAPI| https://[TurbonomicInstance-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption|
+| TurboUserName|changeme|Replace the `changeme` username created in 2nd bullet point under 1.1 step|
+| S3BucketName| | S3 Bucket name as per your Envizi instance|
+| EnviziTemplateFileName |  | S3 Folder name and File name as per Envizi instance. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
+| TurboDataCentresAPI|https://[TurbonomicInstance-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance.|
+| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| Please update statDate and endDate to retrieve the electricity consumption for the period.|
+| DCNames | "IBMCloud" | Engizi provides the Data Centre names to be retrieved. More data centres can be added by separating with `|` symbol example: "IBMCLoud|Vc01dc01" |
+| TurboPassword | changeme| Replace the `changeme` password created in 2nd bullet point under 1.1 step|
 
-- For the `Connect to Hypertext Transfer Protocol (HTTP)` configuration details, please click on `+` symbol and provide URL as `https://sales1.demo.turbonomic.com/api/v3/entities/stats` under `URL`. Leave other fields as it is.
+- For the `Connect to Hypertext Transfer Protocol (HTTP)` configuration details, please click on `+` symbol and provide URL as `https://[TurbonomicInstance-URL]/api/v3/entities/stats` under `URL`. Leave other fields as it is.
 - For the `Connect to Amazon Web Services` configuration details, please click on `+` symbol
 - Configure the `Add Account` AWS page with `Account Name`, `Access Key ID`, `Secret Access Key` and `Default Region`. Leave other fields as it is.
 - Click on `Import` button
@@ -93,6 +93,8 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 - Reference data is a file which is a Envizi template expects as a final output.  Please download the Reference data [ReferenceData](./files/webMethods-archives/Reference/) which needs to be added after importing the Workflow in a project.
 - Under the project created in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
 - `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
+
+<img src="images/wMAccRefdata.png">
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
