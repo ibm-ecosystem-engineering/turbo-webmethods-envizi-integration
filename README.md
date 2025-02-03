@@ -53,7 +53,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 ### 3.2. Create a new Project
 
-- Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default. Note choose the project name as you desired.
+- Name Project Name as `Turbo_wM_Envizi` and Leave `Source Control - Git server/account` as Default, ignore if it is not shown . Note choose the project name as you desired.
 
 <img src="images/wMAccNewProject-02.png">
 
@@ -65,10 +65,11 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccImport-03.png">
 
-### 3.4. Provide Workflow name, Workflow description, AWS service
-
 - Provide the `Workflow name` as `Sustainability Solution - Accounts` and `Workflow description`. Please name `Workflow name` and `Workflow description` as per your need.
+- Click on + symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` and add the `https://[TurbonomicInstance-URL]/api/v3/entities/stats` as URL and leave other fileds as it is.
+- Click on + symbol on the `Connect to Amazon Web Services` and add the `Access Key ID`, `Secret Access Key` and `Default Region` as per Envizi.
 - Parameters custom `key-value pairs` used inside the Workflow.
+
 #### Parameters
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
