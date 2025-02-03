@@ -124,7 +124,6 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 |Total Cost|| |
 
 
-
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
 ### 3.5. Configure the Workflow nodes
@@ -133,104 +132,16 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 <img src="images/wMAccWorkflow-02.png">
 
-#### 3.5.1. Configure the node `Turbonomic API Login`
+#### About Nodes
 
-- Configurations for all the nodes are already available when the Workflow is imported, However each node needs to be tested.
-
-- Mouse over to `Turbonomic API Login` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure`, Click on `Next`
-
-#### Test this action
-
-- Click on `Test` button to see if the login is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccTAPILogin-05.png">
-
-#### 3.5.2. Configure the node `DataCentre Retrieve`
-
-- Mouse over to `DataCentre Retrieve` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure`, page Click on `Next`
-
-#### Test this action
-
-- Click on `Test` button to see if the DataCentre Retrieval is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccDTRet-06.png">
-
-#### 3.5.3. Configure the node `JSON Parse`
-
-- Mouse over to `JSON Parse` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure` page CLick on `Next`
-
-#### Test this action
-
-- Click on `Test` button to see if the `JSON Parse` is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccJParse-07.png">
-
-#### 3.5.4. Configure the node `Query JSON`
-
-- Mouse over to `Query JSON` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure` page click on `Next`
-
-#### Test this action
-
- Click on `Test` button to see if the `Query JSON` is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccQJSON-08.png">
-
-#### 3.5.5. Configure the node `Query JSON`
-
-- Mouse over to `Query JSON` node and click on `Settings`
-- Click on `Next`
-- In the `Action configure` page click on `Next`
-
-#### Test this action
-
- Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
-
- <img src="images/wMAccQJSON-09.png">
-
- #### 3.5.6. Configure the node `DCTest`
-
- - Mouse over to `DCTest` node and Click on `Settings`
-- Click on `Next`
-- In the `Action configure` page click on `Next`
-
-#### Test this action
-
- Click on `Test` button to see if the `DCTest` is successful and Click on `Done` button once it is success.
-
- <img src="images/wMAccDCTest-10.png">
-
- #### 3.5.7. Configure the node `JSON to CSV`
-
-- Mouse over to `JSON to CSV` node and Click on `Settings`
-- Click on `Next`
-- In the `Action configure` page click on `Next`
-
-#### Test this action
-
- Click on `Test` button to see if the `JSON to CSV` is successful and Click on `Done` button once it is success.
-
- <img src="images/wMAccJToCSV-11.png">
-
-
- #### 3.5.8. Configure the node `S3 Upload File`
-
-- Mouse over to `S3 Upload File` node and Click on `Settings`
-- Click on `Next`
-- In the `Action configure` page click on `Next`
-
-#### Test this action
-
-- Click on `Test` button to see if the `S3 Upload File` is successful and Click on `Done` button once it is success.
-
-<img src="images/wMAccS3Upload-12.png">
+- `Turbonomic API Login` :  HTTP built-in connector invokes Turbonomic instance login API which returns `set-cookie` which will be used in subsequent API calls.
+- `DataCentre Retrieve` : HTTP built-in connector invokes Turbonomic API which returns array list of DataCentre’s.
+- `JSON Parse` : built-in connector parses the JSON content.
+- `Query JSON` : built-in connector queries the JSON output.
+- `Query JSON` : built-in connector queries the responseObject data from `DataCentre Retrieve`.
+- `DCTest` :  It is a flow-service which invokes the Turbonomic stats API to retrieve the electricity consumption and perform the data transformations as needed by Envizi.
+- `JSON to CSV` : built-in connector to format into a CSV file.
+- `S3 Upload File` :  Amazon Web Services built-in connector to push the data into S3 bucket.
 
 ### 3.6. Activate the Workflow
 
