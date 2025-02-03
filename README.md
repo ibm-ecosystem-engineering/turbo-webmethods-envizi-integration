@@ -79,7 +79,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 | EnviziTemplateFileName |  | S3 Folder name and File name as per Envizi instance. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
 | TurboDataCentresAPI|https://[TurbonomicInstance-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance.|
 | statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| Please update statDate and endDate to retrieve the electricity consumption for the period.|
-| DCNames | "IBMCloud" | Engizi provides the Data Centre names to be retrieved. More data centres can be added with `&#124;` symbol for example: "IBMCLoud&#124;Vc01dc01" |
+| DCNames | "IBMCloud" | Engizi provides the Data Centre names to be retrieved. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
 | TurboPassword | changeme| Replace the `changeme` password created in 2nd bullet point under 1.1 step|
 
 - For the `Connect to Hypertext Transfer Protocol (HTTP)` configuration details, please click on `+` symbol and provide URL as `https://[TurbonomicInstance-URL]/api/v3/entities/stats` under `URL`. Leave other fields as it is.
@@ -95,6 +95,35 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 - `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
 
 <img src="images/wMAccRefdata.png">
+
+#### Reference Data Columns
+
+|Name|Value|Comments|
+|------------------------|--------------------------||
+|Organization Link|17000252| |
+|Organization|GSI Demos	| |
+|Location|IBMCloud| |
+|Location Ref| |
+|Account Style Link|14445| |
+|Account Style Caption|S2 - Electricity - kWh| |
+|Account Subtype|Default| |
+|Account Number|vc01dc01-electricity| |
+|Account Reference|| |
+|Account Supplier|| |
+|Account Reader|| |
+|Record Start YYYY-MM-DD|02-10-2024| |
+|Record End YYYY-MM-DD|30-12-2024| |
+|Record Data Quality|Actual| |
+|Record Billing Type|Standard| |
+|Record Subtype|Default| |
+|Record Entry Method|Overwrite| |
+|Record Reference|| |
+|Record Invoice Number|| |
+|Total Electricity (kWh)|883.799| |
+|Green Power (kWh)|| |
+|Total Cost|| |
+
+
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
