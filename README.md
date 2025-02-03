@@ -126,9 +126,9 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 - Click on `Edit` by moving mouse over the Workflow imported above.
 
-### 3.5. Configure the Workflow nodes
+### 3.5. Workflow nodes
 
-- In this step Workflow nodes configuration needs to be updated.
+- Nodes used in the Workflow.
 
 <img src="images/wMAccWorkflow-02.png">
 
