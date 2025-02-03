@@ -79,7 +79,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 | EnviziTemplateFileName |  | S3 Folder name and File name as per Envizi instance. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
 | TurboDataCentresAPI|https://[TurbonomicInstance-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance.|
 | statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| Please update statDate and endDate to retrieve the electricity consumption for the period.|
-| DCNames | "IBMCloud" | Engizi provides the Data Centre names to be retrieved. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
+| DCNames | "IBMCloud" | Envizi provides the Data Centre names to be retrieved. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
 | TurboPassword | changeme| Replace the `changeme` password created in 2nd bullet point under 1.1 step|
 
 - For the `Connect to Hypertext Transfer Protocol (HTTP)` configuration details, please click on `+` symbol and provide URL as `https://[TurbonomicInstance-URL]/api/v3/entities/stats` under `URL`. Leave other fields as it is.
