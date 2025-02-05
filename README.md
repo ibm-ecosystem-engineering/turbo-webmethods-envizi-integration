@@ -40,7 +40,7 @@ We would be retreiving Datacenters and its energy consumption (electricity) data
 
 For each Datacenter in Turbonomic there will be an `Account` created in Envizi under a pre-configured `Location`.
 
-The entire organization hierarchy with Groups, Locations and Accounts in Envizi may look like this. Look at the below location and account are highlighted in the image.
+The entire organization hierarchy with Groups, Locations and Accounts in Envizi may look like this. Look at the location and account highlighted in the image below.
 - Location : IN Bank - IBMC-WDC07-Ashburn VA 
 - Account  : IN Bank - IBMC-WDC07-Electricity. 
 
@@ -55,9 +55,9 @@ The entire organization hierarchy with Groups, Locations and Accounts in Envizi 
 
 #### 1.3.2 Envizi S3 Bucket
 
-Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is not created in Envizi, refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create it Enviiz
+Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is not created in Envizi, refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create it in Envizi.
 
-1. From Envizi S3 bucket screen, Get the values for the below fields
+1. From Envizi S3 bucket screen, get the values for the below fields.
   - Bucket
   - Folder
   - Username
@@ -137,11 +137,11 @@ Get the values for the below 3 fields from `Account Setup and Data Load` Report 
 
 |Name                     |  Value               |Comments                  |
 |-------------------------|----------------------|--------------------------|
-|Organization Link|17000252| The refernce id for the Envizi Organization. Available in `Account Setup and Data Load` Report|
-|Organization|GSI Demos	| The name of the Organization. Available in `Account Setup and Data Load` Report|
-|Location|IBMCloud| The name of location where the account exists/to be created |
+|Organization Link|17000252| The refernce id for the Envizi Organization. Get it from Pre-requisite|
+|Organization|GSI Demos	| The name of the Organization. Get it from Pre-requisite|
+|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by webmethods|
 |Location Ref| | Leave it empty|
-|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Available in `Account Setup and Data Load` Report|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Get it from Pre-requisite|
 |Account Style Caption|S2 - Electricity - kWh| The account style of this account Leave it as it is. |
 |Account Subtype|Default| Leave it as it is.|
 |Account Number|vc01dc01-electricity| The account name. Leave it as it is. It will be updated by webmethods |
