@@ -142,21 +142,21 @@ Get the values for the below 3 fields from `Account Setup and Data Load` Report 
 |Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by webmethods|
 |Location Ref| | Leave it empty|
 |Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Get it from Pre-requisite|
-|Account Style Caption|S2 - Electricity - kWh| The account style of this account Leave it as it is. |
+|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by webmethods|
 |Account Subtype|Default| Leave it as it is.|
-|Account Number|vc01dc01-electricity| The account name. Leave it as it is. It will be updated by webmethods |
+|Account Number|vc01dc01-electricity| The account name. It will be updated by webmethods |
 |Account Reference|| Leave it empty|
 |Account Supplier|| Leave it empty|
 |Account Reader|| Leave it empty|
-|Record Start YYYY-MM-DD|02-10-2024| Leave it as it is. It will be updated by webmethods|
-|Record End YYYY-MM-DD|30-12-2024| Leave it as it is. It will be updated by webmethods |
+|Record Start YYYY-MM-DD|02-10-2024| It will be updated by webmethods|
+|Record End YYYY-MM-DD|30-12-2024| It will be updated by webmethods |
 |Record Data Quality|Actual| Leave it as it is. |
 |Record Billing Type|Standard| Leave it as it is. |
 |Record Subtype|Default| Leave it as it is. |
 |Record Entry Method|Overwrite| Leave it as it is. s|
 |Record Reference|| Leave it empty|
 |Record Invoice Number|| Leave it empty|
-|Total Electricity (kWh)|883.799| Leave it as it is. It will be updated by webmethods |
+|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by webmethods |
 |Green Power (kWh)||Leave it empty |
 |Total Cost|| Leave it empty|
 
