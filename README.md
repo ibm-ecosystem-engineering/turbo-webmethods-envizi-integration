@@ -105,11 +105,11 @@ Get the values for the below 3 fields from `Account Setup and Data Load` Report 
 
 |Name                     |  Value               |Comments                  |
 |-------------------------|----------------------|--------------------------|
-|Organization Link|17000252| The refernce id for the Envizi Organization. Available in Account Setup and Data Load Report|
-|Organization|GSI Demos	| The name of the Organization. Available in Account Setup and Data Load Report|
+|Organization Link|17000252| The refernce id for the Envizi Organization. Available in `Account Setup and Data Load` Report|
+|Organization|GSI Demos	| The name of the Organization. Available in `Account Setup and Data Load` Report|
 |Location|IBMCloud| The name of location where the account exists/to be created |
-|Location Ref| Leave it empty|
-|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Available in Account Setup and Data Load Report|
+|Location Ref| | Leave it empty|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Available in `Account Setup and Data Load` Report|
 |Account Style Caption|S2 - Electricity - kWh| |
 |Account Subtype|Default| |
 |Account Number|vc01dc01-electricity| Leave it as it is. It will be updated by webmethods |
