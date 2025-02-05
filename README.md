@@ -2,6 +2,9 @@
 
 This blog explains about the step-by-step instructions to pull green IT data from Turbonomic into Envizi via webMethods Integration.
 
+
+
+
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1) <br />
  [Madhukrishna Parike]() <br />
@@ -21,16 +24,45 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 ### 1.1 Environment
 
 - Turbonomic v8.14.3 or higher 
-- Turbonomic user with `Observer` role in. (Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user)
-- Envizi's S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket). Make a note of the values of the `Bucket`, `Folder`, `UserName`, `Access Key` and `Secret Access Key` for further reference.
+- Envizi Saas instance access (Click [here](https://techzone.ibm.com/collection/aiapps-environmental-intelligencewith-envizi/environments) to get access). 
 - webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial).
 
-### 1.1 Envizi Organization hierarchy details
- -  Following the steps in this article, we would be retreiving the energy consumption (electricity) data of the Datacenter using the Turbo APIs.
- -  To proceed with the actually integration, we need to have the data center location and the relevant accounts ( to hold the electricity data)  to be pre-configured in Envizi.  Hence, in this article, we are using the below organization hierarchy in Envizi and the corresponding data center locations ex: IN Bank - IBMC-WDC07-Ashburn VA , etc and the specific accounts of the data center IN Bank - IBMC-WDC07-Electricity. 
+### 1.2 Turbonomic Pre-Configuration
 
- -  Feel free to use your own hierarchy, location and account names and make sure to update the same in the configurations below whereever required. 
-  <img src="images/GSI_Demo_WM_Envizi_Org_1.png">
+1. Create an user with `Observer` role in Turbonomic. Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user.
+
+
+### 1.3 Envizi Pre Configuration
+
+#### 1.3.1 Organization, Account Style and Location
+
+We would be retreiving Datacenters and its energy consumption (electricity) data from Turbonomic through the Turbonomic APIs.
+
+For each Datacenter in Turbonomic there will be an `Account` created in Envizi under a pre-configured `Location`.
+
+The entire organization hierarchy with Groups, Locations and Accounts in Envizi may look like this. Look at the below location and account are highlighted in the image.
+- Location : IN Bank - IBMC-WDC07-Ashburn VA 
+- Account  : IN Bank - IBMC-WDC07-Electricity. 
+
+<img src="images/GSI_Demo_WM_Envizi_Org_1.png">
+
+
+1. Get the values for the below fields from Envizi
+  - Organization (Organization name)
+  - Organization Link (Organization reference id)
+  - Account Style Link (Reference id for the account style `S2 - Electricity - kWh`)
+  - Location Name (The location name under which the accounts to be created)
+
+#### 1.3.2 Envizi S3 Bucket
+
+Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is not created in Envizi, refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create it Enviiz
+
+1. From Envizi S3 bucket screen, Get the values for the below fields
+  - Bucket
+  - Folder
+  - Username
+  - Access Key
+  - Secret Access Key
 
 
 ## 2. Architecture
