@@ -110,9 +110,9 @@ Get the values for the below 3 fields from `Account Setup and Data Load` Report 
 |Location|IBMCloud| The name of location where the account exists/to be created |
 |Location Ref| | Leave it empty|
 |Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Available in `Account Setup and Data Load` Report|
-|Account Style Caption|S2 - Electricity - kWh| |
-|Account Subtype|Default| |
-|Account Number|vc01dc01-electricity| Leave it as it is. It will be updated by webmethods |
+|Account Style Caption|S2 - Electricity - kWh| The account style of this account Leave it as it is. |
+|Account Subtype|Default| Leave it as it is.|
+|Account Number|vc01dc01-electricity| The account name. Leave it as it is. It will be updated by webmethods |
 |Account Reference|| Leave it empty|
 |Account Supplier|| Leave it empty|
 |Account Reader|| Leave it empty|
