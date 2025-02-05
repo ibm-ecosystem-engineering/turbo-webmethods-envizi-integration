@@ -97,30 +97,36 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### Reference Data Columns
 
+Get the values for the below 3 fields from `Account Setup and Data Load` Report from Envizi. 
+- Organization Link
+- Organization
+- Account Style Link
+
+
 |Name                     |  Value               |Comments                  |
 |-------------------------|----------------------|--------------------------|
-|Organization Link|17000252| |
-|Organization|GSI Demos	| |
-|Location|IBMCloud| |
-|Location Ref| |
-|Account Style Link|14445| |
+|Organization Link|17000252| The refernce id for the Envizi Organization. Available in Account Setup and Data Load Report|
+|Organization|GSI Demos	| The name of the Organization. Available in Account Setup and Data Load Report|
+|Location|IBMCloud| The name of location where the account exists/to be created |
+|Location Ref| Leave it empty|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Available in Account Setup and Data Load Report|
 |Account Style Caption|S2 - Electricity - kWh| |
 |Account Subtype|Default| |
-|Account Number|vc01dc01-electricity| |
-|Account Reference|| |
-|Account Supplier|| |
-|Account Reader|| |
-|Record Start YYYY-MM-DD|02-10-2024| |
-|Record End YYYY-MM-DD|30-12-2024| |
-|Record Data Quality|Actual| |
-|Record Billing Type|Standard| |
-|Record Subtype|Default| |
-|Record Entry Method|Overwrite| |
-|Record Reference|| |
-|Record Invoice Number|| |
-|Total Electricity (kWh)|883.799| |
-|Green Power (kWh)|| |
-|Total Cost|| |
+|Account Number|vc01dc01-electricity| Leave it as it is. It will be updated by webmethods |
+|Account Reference|| Leave it empty|
+|Account Supplier|| Leave it empty|
+|Account Reader|| Leave it empty|
+|Record Start YYYY-MM-DD|02-10-2024| Leave it as it is. It will be updated by webmethods|
+|Record End YYYY-MM-DD|30-12-2024| Leave it as it is. It will be updated by webmethods |
+|Record Data Quality|Actual| Leave it as it is. |
+|Record Billing Type|Standard| Leave it as it is. |
+|Record Subtype|Default| Leave it as it is. |
+|Record Entry Method|Overwrite| Leave it as it is. s|
+|Record Reference|| Leave it empty|
+|Record Invoice Number|| Leave it empty|
+|Total Electricity (kWh)|883.799| Leave it as it is. It will be updated by webmethods |
+|Green Power (kWh)||Leave it empty |
+|Total Cost|| Leave it empty|
 
 - Under the project created in step 3.2, Click on `Configurations -> Flow service -> Reference data -> Add Reference Data`
 - `Save As` EnviziTemplate and `Reference Data File` Browse file and select the `EnviziTemplate.txt` and Click on `Next`, `Next` and `Done`
@@ -173,7 +179,7 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 #### 4.2. Sample Data from S3
 
-- The sample data is available here.  [Accounts](./files/data/accounts/),  [Locations](./files/data/locations/).
+- The sample data is available [here](./files/data/).
 
 #### 4.3. Processing S3 files in Envizi
 
