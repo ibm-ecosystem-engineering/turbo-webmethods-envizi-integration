@@ -20,6 +20,8 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 
 ## 1. Prerequisite
 
+<details><summary>CLICK me for detailed instructions</summary>
+
 ### 1.1 Environment
 
 - Turbonomic v8.14.3 or higher 
@@ -62,6 +64,7 @@ Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is n
   - Access Key
   - Secret Access Key
 
+</details>
 
 ## 2. Architecture
 
