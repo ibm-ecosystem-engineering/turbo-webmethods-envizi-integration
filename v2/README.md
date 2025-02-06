@@ -333,25 +333,25 @@ The workflow can be scheduled for execution. Follow the steps below to define th
 
 2. Click on `Settings`
 
-<img src="images/img-31.png">
+<img src="images/im-31.png">
 
 3. Select `Clock` option
 
 4. Click on `Next` button.
 
-<img src="images/img-32.png">
+<img src="images/im-32.png">
 
 5. Change the schedule as per your need 
 
 6. Click on `Done` button
 
- <img src="images/img-33.png">
+ <img src="images/im-33.png">
 
 The schduling is done and the Trigger node shows the clock icon.
 
 7. Click on `Save` button to save the workflow.
 
- <img src="images/img-34.png">
+ <img src="images/im-34.png">
 
 Now the workflow will execute automatically as per the defined schedule.
 
