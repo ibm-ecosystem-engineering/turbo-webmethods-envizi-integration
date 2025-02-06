@@ -45,7 +45,6 @@ The entire organization hierarchy with Groups, Locations and Accounts in Envizi 
 
 <img src="images/org-hierarchy.png">
 
-
 1. Get the values for the below fields from Envizi
   - Organization (Organization name)
   - Organization Link (Organization reference id)
@@ -74,11 +73,13 @@ webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Cen
 
 ## 3. Create Workflow in webMethods
 
+Let's create workflow in webMethods.
+
 In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for each DataCenter locations and transform the JSON API response into the CSV template loaded by Envizi.
 
-<details><summary>CLICK me for detailed instructions</summary>
+### 3.1. Create Project
 
-### 3.2. Create Project
+<details><summary>CLICK me for detailed instructions</summary>
 
 1. Login to your instance of webMethods integration with the respective credentials.
 
@@ -88,17 +89,21 @@ In this workflow, we will invoke Turbonomic APIs to fetch Energy consumption for
 
 3. Enter the Project name.
 
-4. Click `Create`, to create the project.
+4. Click on `Create`, to create the project.
 
 <img src="images/im-12.png">
 
-The project get created as shown in the below image.
+The project gets created as shown in the below image.
 
-### 3.3. Import Workflow
+</details>
+
+### 3.2. Import Workflow
+
+<details><summary>CLICK me for detailed instructions</summary>
 
 1. Download the Workflow archive file [here](./files/webMethods-archives).
 
-2. Click on the `Import` 
+2. Click on `Import` button.
 
 3. Select the Workflow file that is downloaded in the above step.
 
@@ -113,15 +118,15 @@ Refer the below table for the parameters values.
 
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
-| TurboLoginAPI| https://[Turbonomic-URL]/api/v3/login | Turbonomic Login API|
-| TurboAccountStatsAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption|
-| TurboUserName|changeme|Replace the `changeme` username created in 2nd bullet point under 1.1 step|
-| TurboPassword | changeme| Replace the `changeme` password created in 2nd bullet point under 1.1 step|
-| S3BucketName| | S3 Bucket name as per your Envizi instance|
-| EnviziTemplateFileName |  | S3 Folder name and File name as per Envizi instance. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
-| TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance.|
-| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| Please update statDate and endDate to retrieve the electricity consumption for the period.|
-| DCNames | "IBMCloud" | Envizi provides the Data Centre names to be retrieved. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
+| TurboLoginAPI| https://[Turbonomic-URL]/api/v3/login | Turbonomic Login API. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboAccountStatsAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboUserName||Enter the Turbonomic UserName received as part of Pre-Requisite|
+| TurboPassword | | Enter the Turbonomic Password received as part of Pre-Requisite|
+| S3BucketName| | S3 Bucket name received as part of Pre-Requisite|
+| EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
+| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| The statDate and endDate to retrieve the electricity consumption for the period.|
+| DCNames | "IBMCloud" | The Data Centre names that we are interested to share to Envizi. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
 
 
 <img src="images/im-14.png">
@@ -131,21 +136,21 @@ Refer the below table for the parameters values.
 
 5. In the above page, click on `+` symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` field. 
 
-The Add Account popup appears as below.
+  The Add Account popup appears as below.
 
 6. In the `URL` field, enter the value `https://[Turbonomic-URL]/api/v3/entities/stats`
 
-7. Click `Create` button.
+7. Click `Add` button.
 
-<img src="images/im-17.png">
+  <img src="images/im-17.png">
 
-The project page updated with the above created value.
+  The project page updated with the above created value.
 
 8. Click on `+` symbol on the `Connect to Amazon Web Services` field. 
 
-<img src="images/im-18.png">
+  <img src="images/im-18.png">
 
-The Add Account popup appears as below.
+  The Add Account popup appears as below.
 
 9. Enter the following values based on the pre-requisite values from Envizi.
 
@@ -153,7 +158,7 @@ The Add Account popup appears as below.
  - Secret Access Key
  - Default Region  (us-east-1)
 
-10. Click `Create` button.
+10. Click `Add` button.
 
 <img src="images/im-19.png">
 
@@ -163,13 +168,17 @@ The project page updated with the above created value.
 
 <img src="images/im-20.png">
 
-The workflow got created as below.
+The workflow is created as shown below.
 
 <img src="images/im-21.png">
 
-### 3.4. Create Reference Data
+</details>
 
-#### 3.4.1 Prepare Envizi Template file.
+### 3.3. Create Reference Data
+
+<details><summary>CLICK me for detailed instructions</summary>
+
+#### 3.3.1 Prepare Envizi Template file.
 
 The Envizi template file to be imported into the workflow as a reference data. Let's prepare that.
 
@@ -207,44 +216,47 @@ The Envizi template file to be imported into the workflow as a reference data. L
 |Total Cost|| Leave it empty|
 
 
-#### 3.4.2 Add Reference Data
+#### 3.3.2 Add Reference Data
 
-1. Goto the `Reference Dat`a data page by clicking on `Configurations -> Flow service -> Reference data`
+1. Goto the `Reference Data` data page by clicking on `Configurations -> Flow service -> Reference data`
 
-2. Click on `Reference data` button.
+2. Click on `Add Reference data` button.
 
-<img src="images/im-22.png">
+  <img src="images/im-22.png">
 
 3. In `Save As` column, enter  the value `EnviziTemplate`
 
-The `Browse file` button is enabled.
+  The `Browse file` button is enabled.
 
 4. Click on `Browse file` button.
 
 5. Choose the above prepared `EnviziTemplate.txt` file
 
-<img src="images/im-23.png">
+  <img src="images/im-23.png">
 
-The selected file appear like this.
+  The selected file appear like this.
 
 6. Click on `Next` button.
 
-<img src="images/im-24.png">
+  <img src="images/im-24.png">
 
 7. Click on `Next` button.
 
-<img src="images/im-25.png">
+  <img src="images/im-25.png">
 
 8. Click on `Done` button.
 
-<img src="images/im-26.png">
+  <img src="images/im-26.png">
 
-The reference data get created.
+  The reference data is created as shown below.
 
-<img src="images/im-27.png">
+  <img src="images/im-27.png">
 
+</details>
 
 ### 3.4. View the workflow
+
+<details><summary>CLICK me for detailed instructions</summary>
 
 Let's view the imported/created workflow.
 
@@ -272,11 +284,15 @@ Here is the details about the various nodes.
 
 ## 4. Execute the Workflow
 
+<details><summary>CLICK me for detailed instructions</summary>
+
 1. Click `ON` (1) to activate the Workflow
 
 2. Click on Run button (2) to start the workflow.
 
 <img src="images/im-30.png">
+
+</details>
 
 
 ## 5. Check the result in Envizi
@@ -361,7 +377,7 @@ Let us create a local user in Turbonomic with the `Observer` role.
 
 <img src="images/im-51.png">
 
-4. User gets created.
+4. User is created.
 
 <img src="images/im-52.png">
 
