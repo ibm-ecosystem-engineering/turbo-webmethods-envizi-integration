@@ -131,7 +131,12 @@ Refer the below table for the parameters values.
 | TurboPassword | | Enter the Turbonomic Password received as part of Pre-Requisite|
 | S3BucketName| | S3 Bucket name received as part of Pre-Requisite|
 | EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
-| statsFilter| {
+| statsFilter| See below | The statDate and endDate to retrieve the electricity consumption for the period.|
+| TurboEnviziDataMapping | See below | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
+
+**statsFilter**
+```
+{
     "data": {
         "startDate": "2024-01-01 00:00:05",
         "endDate": "2024-12-31 23:59:59",
@@ -147,8 +152,11 @@ Refer the below table for the parameters values.
             }
         ]
     }
-}| The statDate and endDate to retrieve the electricity consumption for the period.|
-| TurboEnviziDataMapping | {
+}
+```
+**TurboEnviziDataMapping**
+```
+{
   "data":  [
       {
         "turbo_data_center": "IBMCloud",
@@ -162,7 +170,8 @@ Refer the below table for the parameters values.
       }
      
     ]
-} | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
+}
+```
 
 
 <img src="images/im-14.png">
