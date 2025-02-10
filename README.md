@@ -42,8 +42,11 @@ We would be retreiving Datacenters and its energy consumption (electricity) data
 For each Datacenter in Turbonomic there will be an `Account` created in Envizi under a pre-configured `Location`.
 
 The entire organization hierarchy with Groups, Locations and Accounts in Envizi may look like this. Look at the location and account highlighted in the image below.
-- Location : IN Bank - IBMC-WDC07-Ashburn VA 
-- Account  : IN Bank - IBMC-WDC07-Electricity. 
+| Location       | Account                   |
+| ---------- | ----------------------- | 
+| IN Bank-ODC-IBMCloud| IN Bank-ODC-IBMCloud-electricity|
+| IN Bank-ODC-vc01dc01| IN Bank-ODC-vc01dc01-electricity|
+
 
 <img src="images/org-hierarchy.png">
 
@@ -51,7 +54,7 @@ The entire organization hierarchy with Groups, Locations and Accounts in Envizi 
   - Organization (Organization name)
   - Organization Link (Organization reference id)
   - Account Style Link (Reference id for the account style `S2 - Electricity - kWh`)
-  - Location Name (The location name under which the accounts to be created)
+  - Locations Names and Accounts Names (The locations names under which the accounts to be created)
 
 #### 1.3.2 Envizi S3 Bucket
 
@@ -127,9 +130,39 @@ Refer the below table for the parameters values.
 | TurboUserName||Enter the Turbonomic UserName received as part of Pre-Requisite|
 | TurboPassword | | Enter the Turbonomic Password received as part of Pre-Requisite|
 | S3BucketName| | S3 Bucket name received as part of Pre-Requisite|
-| EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_IBMCloud_electricity.csv|
-| statsFilter| {"data":{ "startDate":"2024-01-01 00:00:05", "endDate": "2024-12-31 23:59:59","statistics": [ { "name": "Energy", "filters": [ { "type": "relation", "value": "sold" }]}]}}| The statDate and endDate to retrieve the electricity consumption for the period.|
-| DCNames | "IBMCloud" | The Data Centre names that we are interested to share to Envizi. More data centres can be added with &#124; symbol for example: "IBMCLoud&#124;Vc01dc01" |
+| EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
+| statsFilter| {
+    "data": {
+        "startDate": "2024-01-01 00:00:05",
+        "endDate": "2024-12-31 23:59:59",
+        "statistics": [
+            {
+                "name": "Energy",
+                "filters": [
+                    {
+                        "type": "relation",
+                        "value": "sold"
+                    }
+                ]
+            }
+        ]
+    }
+}| The statDate and endDate to retrieve the electricity consumption for the period.|
+| TurboEnviziDataMapping | {
+  "data":  [
+      {
+        "turbo_data_center": "IBMCloud",
+        "envizi_location": "IN Bank-ODC-IBMCloud",
+        "envizi_account": "IN Bank-ODC-IBMCloud-electricity"
+      }, 
+      {
+        "turbo_data_center": "vc01dc01",
+        "envizi_location": "IN Bank-ODC-vc01dc01",
+        "envizi_account": "IN Bank-ODC-vc01dc01-electricity"
+      }
+     
+    ]
+} | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
 
 
 <img src="images/im-14.png">
