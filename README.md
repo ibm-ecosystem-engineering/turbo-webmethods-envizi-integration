@@ -314,13 +314,16 @@ The workflow page is displayed.
 Here is the details about the various nodes.
 
 - **Turbonomic API Login** :  This makes an API call to Turbonomic instance login API which returns `set-cookie` and used to authrize the subsequent API calls.
-- **DataCentre Retrieve** : It invokes an API call to Turbonomic instance which returns array list of DataCentre’s.
-- **JSON Parse** : It formats statsFilter raw JSON data.
-- **Query JSON** : It retrieve JSON data from previous node.
-- **Query JSON** : It queries the responseObject JSON data from `DataCentre Retrieve`.
-- **DCTest** :  It is a flow-service which invokes the Turbonomic stats API to retrieve the electricity consumption and perform the data transformations as needed by Envizi.
-- **JSON to CSV** : This converts JSON data from flowservice into a CSV file.
-- **S3 Upload File** :  This node uploads the CSV file from previous node into S3 bucket from which Envizi loads into dashboard.
+- **ParseEnviziDCMap** : This node parses the EnviziDCMap json parameter
+- **Query JSON** : It Queries specific item from the JSON
+- **ProcessEnviziDCMap** : It processes the EnviziDCMap to create string of the format "DC1|DC2" for the datacentres to be fetched from Turbonomic
+- **Retrieve Turbo DataCentres** : It invokes an API call to Turbonomic instance which returns array list of DataCentre’s.
+- **Parse stats filter** : It formats statsFilter raw JSON data.
+- **Query responseObject from statsFilter** : It retrieve JSON data from previous node.
+- **DataCentreUUIDs** : It queries the responseObject JSON data from `DataCentre Retrieve`.
+- **Process DataCentre Stats** :  It is a flow-service which invokes the Turbonomic stats API to retrieve the electricity consumption and perform the data transformations as needed by Envizi.
+- **Convert JSON to CSV** : This converts JSON data from flowservice into a CSV file.
+- **Upload CSV to S3 Bucket** :  This node uploads the CSV file from previous node into S3 bucket from which Envizi loads into dashboard.
 
 <img src="images/im-29.png">
 
