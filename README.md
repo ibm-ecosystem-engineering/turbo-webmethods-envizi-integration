@@ -132,7 +132,7 @@ Refer the below table for the parameters values.
 | S3BucketName| | S3 Bucket name received as part of Pre-Requisite|
 | EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
 | statsFilter| See below | The statDate and endDate to retrieve the electricity consumption for the period.|
-| TurboEnviziDataMapping | See below | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
+| EnviziDCMap | See below | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
 
 **statsFilter**
 ```
@@ -154,7 +154,7 @@ Refer the below table for the parameters values.
     }
 }
 ```
-**TurboEnviziDataMapping**
+**EnviziDCMap**
 ```
 {
   "data":  [
