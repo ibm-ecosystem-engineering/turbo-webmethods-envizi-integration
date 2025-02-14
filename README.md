@@ -137,13 +137,10 @@ InAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres st
 | TurboPassword | | Enter the Turbonomic Password received as part of prerequisites|
 | S3BucketName| | Envizi S3 Bucket name received as part of prerequisites|
 | EnviziTemplateFileName |  | Envizi S3 Folder name and File name as as part of prerequisites. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
-| 
-InFilter| See below | Update startDate and endDate in the 
-InFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
+| InFilter| See below | Update `startDate` and `endDate` in the InFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
 | EnviziDCMap | See below | Create mapping of actual data center name and the corresponding location names created in Envizi along with name of the electricity accounts |
 
-**
-InFilter**
+**InFilter**
 ```
 {
     "data": {
@@ -245,30 +242,30 @@ The Envizi template file to be imported into the workflow as a reference data. P
 - Account Style Link
 
 
-|Name                     |  Value               |Comments                  |
-|-------------------------|----------------------|--------------------------|
-|Organization Link|17000252| The refernce id for the Envizi Organization. Get it from prerequisites|
-|Organization|GSI Demos	| The name of the Organization. Get it from prerequisites|
-|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by workflow based on project parameters|
-|Location Ref| | Leave it empty|
-|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Get it from prerequisites|
-|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by workflow based on project parameters|
-|Account Subtype|Default| Leave it as it is.|
-|Account Number|vc01dc01-electricity| The account name. It will be updated by workflow based on project parameters |
-|Account Reference|| Leave it empty|
-|Account Supplier|| Leave it empty|
-|Account Reader|| Leave it empty|
-|Record Start YYYY-MM-DD|2024-01-01| It will be updated by workflow based on project parameters|
-|Record End YYYY-MM-DD|2024-12-31| It will be updated by workflow based on project parameters |
-|Record Data Quality|Actual| Leave it as it is. |
-|Record Billing Type|Standard| Leave it as it is. |
-|Record Subtype|Default| Leave it as it is. |
-|Record Entry Method|Overwrite| Leave it as it is.|
-|Record Reference|| Leave it empty|
-|Record Invoice Number|| Leave it empty|
-|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by workflow based on turbonomic output |
-|Green Power (kWh)||Leave it empty |
-|Total Cost|| Leave it empty|
+|Name                     |  Value               |Comments                  | User Action          |
+|-------------------------|----------------------|--------------------------|--------------------------|
+|Organization Link|17000252| The refernce id for the Envizi Organization. | Get it from prerequisites |
+|Organization|GSI Demos	| The name of the Organization.| Get it from prerequisites|
+|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by workflow based on project parameters|Nil|
+|Location Ref| | |Nil|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. |Get it from prerequisites|
+|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by workflow based on project parameters|Nil|
+|Account Subtype|Default| | Nil|
+|Account Number|vc01dc01-electricity| The account name. It will be updated by workflow based on project parameters | Nil|
+|Account Reference|| | Nil|
+|Account Supplier|| | Nil|
+|Account Reader|| | Nil|
+|Record Start YYYY-MM-DD|2024-01-01| It will be updated by workflow based on project parameters| Nil|
+|Record End YYYY-MM-DD|2024-12-31| It will be updated by workflow based on project parameters | Nil|
+|Record Data Quality|Actual|  | Nil|
+|Record Billing Type|Standard|  | Nil|
+|Record Subtype|Default|  | Nil|
+|Record Entry Method|Overwrite| | Nil|
+|Record Reference|| | Nil|
+|Record Invoice Number|| | Nil|
+|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by workflow based on turbonomic output | Nil|
+|Green Power (kWh)|| | Nil|
+|Total Cost|| | Nil|
 
 
 #### 3.3.2 Add Reference Data
