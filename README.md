@@ -1,6 +1,6 @@
 # Integrating Turbo with Envizi via webMethods for Green IT data
 
-This blog explains about the step-by-step instructions to pull green IT data from Turbonomic into Envizi via webMethods Integration.
+In this article, we will learn how to leverage webmethods iPaas integration platform to achieve end-to-end integration between turbonomic and Envizi. The article explains in detail, how to retrieve the data center energy consumption by  using turbonomic api, transform the data into Envizi specific data formats and push it to Envizi data services to further process and load into the Envizi platform to calculate the emissions. 
 
 
 #### Authors
@@ -33,24 +33,28 @@ This blog explains about the step-by-step instructions to pull green IT data fro
 1. Create an user with `Observer` role in Turbonomic. Refer [here](#user-content-1-create-user-in-turbonomoic) to create the user.
 
 
-### 1.3 Envizi Pre Configuration
+### 1.3 Envizi Preconfiguration
 
-#### 1.3.1 Organization, Account Style and Location
+#### 1.3.1 Setting up Envizi Organization, Locations and accounts
 
-We would be retreiving Datacenters and its energy consumption (electricity) data from Turbonomic through the Turbonomic APIs.
+To start with the integration, first we need to have / configure the organization hierarchy defined in Envizi and configure the identified datacenters as locations. For this article, lets say we have identified two data centers `IBMCloud | vc01dc01` from which we need to collect electricity consumptions and load into Envizi to calcuatle the emissions. So, these two data centers are represented as 2 different locations in the Envizi's organization hierarchy as shown in the below screenshot. 
 
-For each Datacenter in Turbonomic there will be an `Account` created in Envizi under a pre-configured `Location`.
+<img src="images/org-hierarchy.png">
 
-The entire organization hierarchy with Groups, Locations and Accounts in Envizi may look like this. Look at the location and account highlighted in the image below.
+
+Each of these data center location in Envizi also have a corresponding electricity account created to store / hold the electricity consumption data. Below are the details of the locations and accounts which will be used as inputs further in the article.
+
+
 | Location       | Account                   |
 | ---------- | ----------------------- | 
 | IN Bank-ODC-IBMCloud| IN Bank-ODC-IBMCloud-electricity|
 | IN Bank-ODC-vc01dc01| IN Bank-ODC-vc01dc01-electricity|
 
 
-<img src="images/org-hierarchy.png">
 
-1. Get the values for the below fields from Envizi
+
+1. Get the values for the below fields from Envizi. You can get these details by download the `Account Setup and Data Load` template in Envizi specific to locations and account style.
+
   - Organization (Organization name)
   - Organization Link (Organization reference id)
   - Account Style Link (Reference id for the account style `S2 - Electricity - kWh`)
@@ -58,7 +62,7 @@ The entire organization hierarchy with Groups, Locations and Accounts in Envizi 
 
 #### 1.3.2 Envizi S3 Bucket
 
-Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is not created in Envizi, refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create it in Envizi.
+The integration requires Envizi AWS S3 data service details to place the Envizi templates in the respective s3 folder.  If the Envizi S3 data service is not created, please refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create.
 
 1. From Envizi S3 bucket screen, get the values for the below fields.
   - Bucket
@@ -71,9 +75,9 @@ Envizi S3 bucket details are needed to push the data into Envizi. If the S3 is n
 
 ## 2. Architecture
 
-Here is the architecture  that describes about this Turbonomic and Envizi integration via webMethods.
+Here is the architecture describes about Turbonomic and Envizi integration via webMethods.
 
-webMethods Integration flow pulls the list of Cloud Regions and On-prem Data Centers from Turbonomic and sends it to Envizi's S3 bucket in a CSV file. This CSV file will be further processed by the Envizi internally.
+Leveraging the capabilities of webMethods iPaas Integration platform, we have created workflows and flow services which will communicate with turbonomic using apis and fetch the statistics related to energy consumptions. By using webmethod flow services the data retrieved through multiple apis can be consolidated and transformed into the Envizi specific data format as csvs and finally placing them into Envizi data servies aws s3 for further processing.
 
 <img src="images/arch.png">
 
@@ -107,7 +111,7 @@ The project gets created as shown in the below image.
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-1. Download the Workflow archive file [here](./files/webMethods-archives).
+1. Download the Workflow archive file (webMethods workflow.zip) from [here](./files/webMethods-archives).
 
 2. Click on `Import` button.
 
@@ -115,26 +119,31 @@ The project gets created as shown in the below image.
 
 <img src="images/im-13.png">
 
-4. Enter the values for the following fields.
+4. For the following fields, you can leave the defaults as-is or enter the values as you would like to. 
   - Workflow Name
   - Workflow Description
-  - Parameters
+
+5. Under `Parameters` section, update the field values based on your turbonomic, envizi environments
 
 Refer the below table for the parameters values.
 
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
 | TurboLoginAPI| https://[Turbonomic-URL]/api/v3/login | Turbonomic Login API. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
-| TurboAccountStatsAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboAccount
+InAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
 | TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
-| TurboUserName||Enter the Turbonomic UserName received as part of Pre-Requisite|
-| TurboPassword | | Enter the Turbonomic Password received as part of Pre-Requisite|
-| S3BucketName| | S3 Bucket name received as part of Pre-Requisite|
-| EnviziTemplateFileName |  | S3 Folder name and File name as as part of Pre-Requisite. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
-| statsFilter| See below | The statDate and endDate to retrieve the electricity consumption for the period.|
-| EnviziDCMap | See below | Mapping of Data Centre from Turbo to the location and accounts of Envizi|
+| TurboUserName||Enter the Turbonomic UserName received as part of prerequisites|
+| TurboPassword | | Enter the Turbonomic Password received as part of prerequisites|
+| S3BucketName| | Envizi S3 Bucket name received as part of prerequisites|
+| EnviziTemplateFileName |  | Envizi S3 Folder name and File name as as part of prerequisites. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
+| 
+InFilter| See below | Update startDate and endDate in the 
+InFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
+| EnviziDCMap | See below | Create mapping of actual data center name and the corresponding location names created in Envizi along with name of the electricity accounts |
 
-**statsFilter**
+**
+InFilter**
 ```
 {
     "data": {
@@ -179,57 +188,58 @@ Refer the below table for the parameters values.
 <img src="images/im-16.png">
 
 
-5. In the above page, click on `+` symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` field. 
+6. In the above page, click on `+` symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` field. The Add Account popup appears as below.
 
-  The Add Account popup appears as below.
+<img src="images/im-17.png"> 
 
-6. In the `URL` field, enter the value `https://[Turbonomic-URL]/api/v3/entities/stats`
 
-7. Click `Add` button.
+7. In the `URL` field, enter the value `https://[Turbonomic-URL]/api/v3/entities/`
+   Replace [Turbonomic-URL] with your Turbonomic instance url 
 
-  <img src="images/im-17.png">
+8. Click `Add` button.
 
   The project page updated with the above created value.
 
-8. Click on `+` symbol on the `Connect to Amazon Web Services` field. 
+9. Click on `+` symbol on the `Connect to Amazon Web Services` field. The Add Account popup appears as below.
 
-  <img src="images/im-18.png">
+<img src="images/im-18.png">
 
-  The Add Account popup appears as below.
 
-9. Enter the following values based on the pre-requisite values from Envizi.
+10. Enter the following values based on the prerequisites values from Envizi.
 
  - Access Key ID
  - Secret Access Key
  - Default Region  (us-east-1)
 
-10. Click `Add` button.
+11. Click `Add` button.
 
 <img src="images/im-19.png">
 
 The project page updated with the above created value.
 
-11. Click `Import` button.
+12. Click `Import` button.
 
 <img src="images/im-20.png">
 
-The workflow is created as shown below.
+The workflow and the corresponding flow services are created in the integration project as shown below.
 
-<img src="images/im-21.png">
+<img src="images/im-21_wf.png">
+
+<img src="images/im-21_fs.png">
 
 </details>
 
-### 3.3. Create Reference Data
+### 3.3. Create Reference Data for Flow service
 
 <details><summary>CLICK me for detailed instructions</summary>
 
 #### 3.3.1 Prepare Envizi Template file.
 
-The Envizi template file to be imported into the workflow as a reference data. Let's prepare that.
+The Envizi template file to be imported into the workflow as a reference data. Please note that the reference template is based on `Account Setup and Data Load` template for the account style `S2 - Electricity - kWh` Let's prepare that.
 
 1. Download the Reference data file from [here](./files/envizi)
 
-2. Update the file with the values based on the below table. But you may need to update the below columns only based on the pre-requisite values from Envizi.
+2. Update the file with the values based on the below table. But you may need to update the below columns only based on the prerequisites values from Envizi.
 - Organization Link
 - Organization
 - Account Style Link
@@ -237,26 +247,26 @@ The Envizi template file to be imported into the workflow as a reference data. L
 
 |Name                     |  Value               |Comments                  |
 |-------------------------|----------------------|--------------------------|
-|Organization Link|17000252| The refernce id for the Envizi Organization. Get it from Pre-requisite|
-|Organization|GSI Demos	| The name of the Organization. Get it from Pre-requisite|
-|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by webmethods|
+|Organization Link|17000252| The refernce id for the Envizi Organization. Get it from prerequisites|
+|Organization|GSI Demos	| The name of the Organization. Get it from prerequisites|
+|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by workflow based on project parameters|
 |Location Ref| | Leave it empty|
-|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Get it from Pre-requisite|
-|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by webmethods|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. Get it from prerequisites|
+|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by workflow based on project parameters|
 |Account Subtype|Default| Leave it as it is.|
-|Account Number|vc01dc01-electricity| The account name. It will be updated by webmethods |
+|Account Number|vc01dc01-electricity| The account name. It will be updated by workflow based on project parameters |
 |Account Reference|| Leave it empty|
 |Account Supplier|| Leave it empty|
 |Account Reader|| Leave it empty|
-|Record Start YYYY-MM-DD|02-10-2024| It will be updated by webmethods|
-|Record End YYYY-MM-DD|30-12-2024| It will be updated by webmethods |
+|Record Start YYYY-MM-DD|2024-01-01| It will be updated by workflow based on project parameters|
+|Record End YYYY-MM-DD|2024-12-31| It will be updated by workflow based on project parameters |
 |Record Data Quality|Actual| Leave it as it is. |
 |Record Billing Type|Standard| Leave it as it is. |
 |Record Subtype|Default| Leave it as it is. |
-|Record Entry Method|Overwrite| Leave it as it is. s|
+|Record Entry Method|Overwrite| Leave it as it is.|
 |Record Reference|| Leave it empty|
 |Record Invoice Number|| Leave it empty|
-|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by webmethods |
+|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by workflow based on turbonomic output |
 |Green Power (kWh)||Leave it empty |
 |Total Cost|| Leave it empty|
 
@@ -299,13 +309,13 @@ The Envizi template file to be imported into the workflow as a reference data. L
 
 </details>
 
-### 3.4. View the workflow
+### 3.4. View the Workflow & FlowServices 
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-Let's view the imported/created workflow.
+Let's view the imported/created workflow 
 
-1. Click on the `Edit` button in the workflow.
+1. Click on the `View` button in the `Integrations -> Workflows -> Turbo Envizi Sustainability Solution`.
 
 <img src="images/im-28.png">
 
@@ -313,32 +323,64 @@ The workflow page is displayed.
 
 Here is the details about the various nodes.
 
-- **Turbonomic API Login** :  This makes an API call to Turbonomic instance login API which returns `set-cookie` and used to authrize the subsequent API calls.
-- **ParseEnviziDCMap** : This node parses the EnviziDCMap json parameter
-- **Query JSON** : It Queries specific item from the JSON
-- **ProcessEnviziDCMap** : It processes the EnviziDCMap to create string of the format "DC1|DC2" for the datacentres to be fetched from Turbonomic
-- **Retrieve Turbo DataCentres** : It invokes an API call to Turbonomic instance which returns array list of DataCentre’s.
-- **Parse stats filter** : It formats statsFilter raw JSON data.
-- **Query responseObject from statsFilter** : It retrieve JSON data from previous node.
-- **DataCentreUUIDs** : It queries the responseObject JSON data from `DataCentre Retrieve`.
-- **Process DataCentre Stats** :  It is a flow-service which invokes the Turbonomic stats API to retrieve the electricity consumption and perform the data transformations as needed by Envizi.
-- **Convert JSON to CSV** : This converts JSON data from flowservice into a CSV file.
-- **Upload CSV to S3 Bucket** :  This node uploads the CSV file from previous node into S3 bucket from which Envizi loads into dashboard.
+- **Turbonomic API Login** :  This HTTP node makes an authentication request to turbonomic instance using login API and returns an authentication cookie as part of response header. The subsequent turbonomic APIs uses this cookie as part of their request header by setting `set-cookie`  to authenticate and fetch relavant details.  
+- **ParseEnviziDCMap** : This node parses the input json parameter `EnviziDCMap` as json object. 
+- **Query JSON** : It Queries specific item from the JSON Object
+- **ProcessEnviziDCMap** : It is a flow service `ProcessEnviziDCMap` which parses the josn object `EnviziDCMap` , retrieves the data cetner names and returns the same in string format of "DC1|DC2" 
+- **Retrieve Turbo DataCentres** : This HTTP node invokes turbonomic API which returns list of DataCentres with their `uuids`. 
+- **DataCentreUUIDs** : This query JSON node retrieves the responseObject JSON data containing the `uuids` from `Retieve Turbo DataCentres` 
+- **Parse 
+In filter** : This JSON Parse node formats input parameter `
+InFilter` as raw JSON data.
+- **Query responseObject from 
+InFilter** : This query JSON node retrieve JSON data from `Parse 
+In filter` node.  
+- **Process DataCentre 
+In** : It is a flow-service which invokes the turbonomic 
+In API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
+- **Convert JSON to CSV** : This `JSON to CSV` node converts JSON data returned by the flowservice into a CSV file.
+- **Upload CSV to S3 Bucket** :  This aws s3 node uploads the CSV file returned by `Convert JSON to CSV`  node into Envizi S3 bucket which will be further processed by Envizi. 
 
 <img src="images/im-29.png">
 
-</details>
 
+Now, lets view the imported flowservices. 
+
+
+2. Click on `Integrations -> Flow Services -> DCTest` 
+
+You can expand and explore the flow service transformations implemented
+
+<img src="images/im-29-fs.png">   
+
+
+</details>
+   
 
 ## 4. Execute the Workflow
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-1. Click `ON` (1) to activate the Workflow
-
-2. Click on Run button (2) to start the workflow.
+1. Click on the `Edit` button in the `Integrations -> Workflows -> Turbo Envizi Sustainability Solution`.
 
 <img src="images/im-30.png">
+
+2. Click `ON` (1) to activate the Workflow
+
+3. Click on Run button (2) to start the workflow.
+   
+<img src="images/im-30_e.png"> 
+
+4. Check the execution logs for the output generated once the flow is executed successfully. 
+
+  This particular flow here is executed to fetch the electricity data from data centers IBMCloud & vc01dc01 data centers which are configured in as locations IN Bank-ODC-IBMCloud , IN Bank-ODC-vc01dc01 respectively between the time period  start date:  2025-01-01, end date : 2025-02-28
+  
+  Please view the corresponding records in the csv format from the logs in the below screenshot
+
+<img src="images/im-30_logs.png">
+   
+
+In the next step, verify the same output results reached Envizi and loaded into the system. 
 
 </details>
 
@@ -347,28 +389,28 @@ Here is the details about the various nodes.
 
 <details><summary>CLICK me for detailed instructions</summary>
 
-#### 5.1. Data in S3
+#### 5.1. Check the webmethod output csv file in Envizi S3 data service
 
-The workflow should have pushed the data from Turbonomic into Envizi's S3. 
+The webmethods integration workflow should have fetched the data from Turbonomic, transforms into Envizi specific format and pushes the .csv file into Envizi's aws data service S3 folder. 
 
-You can see the Data flow status in S3 like this.
+You can view the status of the file in `Envizi -> Admin -> Data Flow Automation -> File Delivery Status`
 
 <img src="images/im-40.png">
 
-#### 5.2. Sample Data from S3
 
-The sample data received in S3 from Turbonomic is available [here](./files/sample/).
+#### 5.2. Check the data loaded into respective  electricity accounts of Envizi locations (aka datacenters)
 
-#### 5.3. Processing S3 files in Envizi
 
-Envizi automatically pull the data from S3 and process it. The accounts and account summary page could look like this now.
 
 <img src="images/im-41.png">
 
 
 <img src="images/im-42.png">
-<img src="images/im-43.png">
 
+
+#### 5.3. Sample Data from S3
+
+The sample data received in S3 from Turbonomic is available [here](./files/sample/).
 </details>
 
 ## 6. Schedule Workflow Execution
@@ -433,9 +475,7 @@ Let us create a local user in Turbonomic with the `Observer` role.
 
 ### 2. Reference
 
-- Turbonomic - Envizi Integration https://ibm.github.io/IBM-Sustainability-Software-Portfolio-Connectors/turbonomic-envizi/
-
-- Turbonomic - Envizi Integration https://github.com/IBM/turbonomic-envizi-appconnect-flows
+- Sign up for webMethods SaaS Trial https://signup.softwareag.cloud/#/basic-b
 
 - Creating Envizi S3 bucket (Refer Steps 1 and 2 [here](https://developer.ibm.com/tutorials/awb-sending-udc-excel-to-s3/) to create the bucket)
 
@@ -445,13 +485,14 @@ Let us create a local user in Turbonomic with the `Observer` role.
 
 - Integrate your ESG Data into Envizi using Integration Hub	https://developer.ibm.com/tutorials/awb-envizi-integration-hub/
 
-- Sign up for webMethods SaaS Trial https://signup.softwareag.cloud/#/basic-b
 
 
 #### Tags
 #envizi
-#Sustainability
+#sustainability
 #turbonomic
-
+#webmethods
+#esgdata-integration
+#integration
 #ESG Data and Environmental Intelligence
 #sustainability-highlights-home
