@@ -130,17 +130,16 @@ Refer the below table for the parameters values.
 | Name       | Value                   | Comments             |
 | ---------- | ----------------------- | --------------------
 | TurboLoginAPI| https://[Turbonomic-URL]/api/v3/login | Turbonomic Login API. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
-| TurboAccount
-InAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboAccountStatsAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
 | TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
 | TurboUserName||Enter the Turbonomic UserName received as part of prerequisites|
 | TurboPassword | | Enter the Turbonomic Password received as part of prerequisites|
 | S3BucketName| | Envizi S3 Bucket name received as part of prerequisites|
 | EnviziTemplateFileName |  | Envizi S3 Folder name and File name as as part of prerequisites. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
-| InFilter| See below | Update `startDate` and `endDate` in the InFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
+| statsFilter| See below | Update `startDate` and `endDate` in the statsFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
 | EnviziDCMap | See below | Create mapping of actual data center name and the corresponding location names created in Envizi along with name of the electricity accounts |
 
-**InFilter**
+**statsFilter**
 ```
 {
     "data": {
@@ -185,7 +184,7 @@ InAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres st
 <img src="images/im-16.png">
 
 
-6. In the above page, click on `+` symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` field. The Add Account popup appears as below.
+1. In the above page, click on `+` symbol on the `Connect to Hypertext Transfer Protocol (HTTP)` field. The Add Account popup appears as below.
 
 <img src="images/im-17.png"> 
 
@@ -326,15 +325,9 @@ Here is the details about the various nodes.
 - **ProcessEnviziDCMap** : It is a flow service `ProcessEnviziDCMap` which parses the josn object `EnviziDCMap` , retrieves the data cetner names and returns the same in string format of "DC1|DC2" 
 - **Retrieve Turbo DataCentres** : This HTTP node invokes turbonomic API which returns list of DataCentres with their `uuids`. 
 - **DataCentreUUIDs** : This query JSON node retrieves the responseObject JSON data containing the `uuids` from `Retieve Turbo DataCentres` 
-- **Parse 
-In filter** : This JSON Parse node formats input parameter `
-InFilter` as raw JSON data.
-- **Query responseObject from 
-InFilter** : This query JSON node retrieve JSON data from `Parse 
-In filter` node.  
-- **Process DataCentre 
-In** : It is a flow-service which invokes the turbonomic 
-In API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
+- **Parse statsFilter** : This JSON Parse node formats input parameter ` statsFilter` as raw JSON data.
+- **Query responseObject from statsFilter** : This query JSON node retrieve JSON data from `Parse statsFilter` node.  
+- **Process DataCentre In** : It is a flow-service which invokes the turbonomic API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
 - **Convert JSON to CSV** : This `JSON to CSV` node converts JSON data returned by the flowservice into a CSV file.
 - **Upload CSV to S3 Bucket** :  This aws s3 node uploads the CSV file returned by `Convert JSON to CSV`  node into Envizi S3 bucket which will be further processed by Envizi. 
 
@@ -344,7 +337,7 @@ In API to retrieve the electricity consumption and perform the data transformati
 Now, lets view the imported flowservices. 
 
 
-2. Click on `Integrations -> Flow Services -> DCTest` 
+1. Click on `Integrations -> Flow Services -> DCTest` 
 
 You can expand and explore the flow service transformations implemented
 
