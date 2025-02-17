@@ -1,4 +1,4 @@
-# Integrating Turbo with Envizi via webMethods for Green IT data
+# Integrating Turbonomic with Envizi via webMethods for Green IT data
 
 In this article, we will learn how to leverage webmethods iPaas integration platform to achieve end-to-end integration between turbonomic and Envizi. The article explains in detail, how to retrieve the data center energy consumption by  using turbonomic api, transform the data into Envizi specific data formats and push it to Envizi data services to further process and load into the Envizi platform to calculate the emissions. 
 
