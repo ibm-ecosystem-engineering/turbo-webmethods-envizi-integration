@@ -16,7 +16,7 @@ In this article, we will learn how to leverage webmethods iPaas integration plat
 - [3. Create Workflow in webMethods](#3-Create-Workflow-in-webMethods)
 - [4. Execute the Workflow](#4-Execute-the-Workflow)
 - [5. Check the result in Envizi](#5-Check-the-result-in-Envizi)
-- [6. Schedule Workflow Executionn](#6-Schedule-Workflow-Execution)
+- [6. Schedule Workflow Execution](#6-Schedule-Workflow-Execution)
 
 ## 1. Prerequisite
 
