@@ -136,15 +136,15 @@ Refer the below table for the parameters values.
 | TurboPassword | | Enter the Turbonomic Password received as part of prerequisites|
 | S3BucketName| | Envizi S3 Bucket name received as part of prerequisites|
 | EnviziTemplateFileName |  | Envizi S3 Folder name and File name as as part of prerequisites. Example: client_7e87560fc4e648/Account_Setup_and_Data_Load_DataCenter_electricity.csv|
-| statsFilter| See below | Update `startDate` and `endDate` in the statsFilter and leave the rest as defautls to retrieve the electricity consumption for the period.|
+| statsFilter| See below | To retrieve the electricity consumption for a specific period, update `startDate` and `endDate` in the same format as shown in the below sample and leave the rest as defaults .|
 | EnviziDCMap | See below | Create mapping of actual data center name and the corresponding location names created in Envizi along with name of the electricity accounts |
 
 **statsFilter**
 ```
 {
     "data": {
-        "startDate": "2024-01-01 00:00:05",
-        "endDate": "2024-12-31 23:59:59",
+        "startDate": "2025-01-01T00:00:01+00:00",
+        "endDate": "2025-02-28T00:00:01+00:00",
         "statistics": [
             {
                 "name": "Energy",
@@ -281,7 +281,7 @@ The Envizi template file to be imported into the workflow as a reference data. P
 
 4. Click on `Browse file` button.
 
-5. Choose the above prepared `EnviziTemplate.txt` file
+5. Choose the above prepared `EnviziTemplate.csv` file
 
   <img src="images/im-23.png">
 
@@ -327,7 +327,7 @@ Here is the details about the various nodes.
 - **DataCentreUUIDs** : This query JSON node retrieves the responseObject JSON data containing the `uuids` from `Retieve Turbo DataCentres` 
 - **Parse statsFilter** : This JSON Parse node formats input parameter ` statsFilter` as raw JSON data.
 - **Query responseObject from statsFilter** : This query JSON node retrieve JSON data from `Parse statsFilter` node.  
-- **Process DataCentre In** : It is a flow-service which invokes the turbonomic API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
+- **Process DataCentre Stats** : It is a flow-service which invokes the turbonomic API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
 - **Convert JSON to CSV** : This `JSON to CSV` node converts JSON data returned by the flowservice into a CSV file.
 - **Upload CSV to S3 Bucket** :  This aws s3 node uploads the CSV file returned by `Convert JSON to CSV`  node into Envizi S3 bucket which will be further processed by Envizi. 
 
@@ -363,7 +363,7 @@ You can expand and explore the flow service transformations implemented
 
 4. Check the execution logs for the output generated once the flow is executed successfully. 
 
-  This particular flow here is executed to fetch the electricity data from data centers IBMCloud & vc01dc01 data centers which are configured in as locations IN Bank-ODC-IBMCloud , IN Bank-ODC-vc01dc01 respectively between the time period  start date:  2025-01-01, end date : 2025-02-28
+  This particular flow here is executed to fetch the electricity data from data centers `IBMCloud & vc01dc01` data centers which are configured in as locations `IN Bank-ODC-IBMCloud` , `IN Bank-ODC-vc01dc01` respectively between the time period  `start date:  2025-01-01`, `end date : 2025-02-28`
   
   Please view the corresponding records in the csv format from the logs in the below screenshot
 
