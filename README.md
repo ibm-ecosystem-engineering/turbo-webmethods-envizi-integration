@@ -1,12 +1,12 @@
 # Integrating Turbonomic with Envizi via webMethods for Green IT data
 
-In this article, we will learn how to leverage webmethods iPaas integration platform to achieve end-to-end integration between turbonomic and Envizi. The article explains in detail, how to retrieve the data center energy consumption by  using turbonomic api, transform the data into Envizi specific data formats and push it to Envizi data services to further process and load into the Envizi platform to calculate the emissions. 
+In this article, we will learn how to leverage webmethods iPaas integration platform to achieve end-to-end integration between Turbonomic and Envizi. The article explains in detail, how to retrieve the data center energy consumption by  using Turbonomic api, transform the data into Envizi specific data formats and push it to Envizi data services using webMethods, to further process and load into the Envizi platform to calculate the emissions. 
 
 
 #### Authors
  [Jeya Gandhi Rajan M](https://community.ibm.com/community/user/envirintel/people/jeya-gandhi-rajan-m1) <br />
  [Madhukrishna Parike]() <br />
- [Jyoti Rani]() <br />
+ [Jyoti Rani](https://community.ibm.com/community/user/people/jyoti-rani1) <br />
  [Indira Kalagara]()
 
 ## Contents
@@ -26,7 +26,7 @@ In this article, we will learn how to leverage webmethods iPaas integration plat
 
 - Turbonomic v8.14.3 or higher 
 - Envizi Saas instance access (Click [here](https://techzone.ibm.com/collection/aiapps-environmental-intelligencewith-envizi/environments) to get access). 
-- webMethods SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial).
+- webMethods Integration SaaS (Click [here](https://signup.softwareag.cloud/#/basic-b) to signup for Trial).
 
 ### 1.2 Turbonomic Pre-Configuration
 
@@ -75,9 +75,9 @@ The integration requires Envizi AWS S3 data service details to place the Envizi 
 
 ## 2. Architecture
 
-Here is the architecture describes about Turbonomic and Envizi integration via webMethods.
+Here is the architecture that describes about Turbonomic and Envizi integration via webMethods.
 
-Leveraging the capabilities of webMethods iPaas Integration platform, we have created workflows and flow services which will communicate with turbonomic using apis and fetch the statistics related to energy consumptions. By using webmethod flow services the data retrieved through multiple apis can be consolidated and transformed into the Envizi specific data format as csvs and finally placing them into Envizi data servies aws s3 for further processing.
+Leveraging the capabilities of webMethods iPaas Integration platform, we have created workflows and flow services which will communicate with Turbonomic using apis and fetch the statistics related to data centres energy consumptions. By using webMethods flow services the data retrieved through multiple apis can be consolidated and transformed into the Envizi specific data format as CSVs and finally placing them into Envizi data servies AWS S3 for further processing.
 
 <img src="images/arch.png">
 
@@ -131,7 +131,7 @@ Refer the below table for the parameters values.
 | ---------- | ----------------------- | --------------------
 | TurboLoginAPI| https://[Turbonomic-URL]/api/v3/login | Turbonomic Login API. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
 | TurboAccountStatsAPI| https://[Turbonomic-URL]/api/v3/entities/ | Retrieves the Data Centres statistics such as electricity consumption. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
-| TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbomic instance. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
+| TurboDataCentresAPI|https://[Turbonomic-URL]/api/v3/search|  Fetches the data centres locations from Turbonomic instance. Replace the `[Turbonomic-URL]` with your Turbonomic instance url |
 | TurboUserName||Enter the Turbonomic UserName received as part of prerequisites|
 | TurboPassword | | Enter the Turbonomic Password received as part of prerequisites|
 | S3BucketName| | Envizi S3 Bucket name received as part of prerequisites|
@@ -329,7 +329,7 @@ Here is the details about the various nodes.
 - **Query responseObject from statsFilter** : This query JSON node retrieve JSON data from `Parse statsFilter` node.  
 - **Process DataCentre Stats** : It is a flow-service which invokes the turbonomic API to retrieve the electricity consumption and perform the data transformations to return the data in the format as needed by Envizi.
 - **Convert JSON to CSV** : This `JSON to CSV` node converts JSON data returned by the flowservice into a CSV file.
-- **Upload CSV to S3 Bucket** :  This aws s3 node uploads the CSV file returned by `Convert JSON to CSV`  node into Envizi S3 bucket which will be further processed by Envizi. 
+- **Upload CSV to S3 Bucket** :  This AWS S3 node uploads the CSV file returned by `Convert JSON to CSV`  node into Envizi S3 bucket which will be further processed by Envizi. 
 
 <img src="images/im-29.png">
 
@@ -381,7 +381,7 @@ In the next step, verify the same output results reached Envizi and loaded into 
 
 #### 5.1. Check the webmethod output csv file in Envizi S3 data service
 
-The webmethods integration workflow should have fetched the data from Turbonomic, transforms into Envizi specific format and pushes the .csv file into Envizi's aws data service S3 folder. 
+The webmethods integration workflow fetches the data from Turbonomic, transforms into Envizi specific format and pushes the .csv file into Envizi's AWS data service S3 folder. 
 
 You can view the status of the file in `Envizi -> Admin -> Data Flow Automation -> File Delivery Status`
 
