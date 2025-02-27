@@ -57,6 +57,7 @@ Each of these data center location in Envizi also have a corresponding electrici
 
   - Organization (Organization name)
   - Organization Link (Organization reference id)
+  - Account Style Caption (Using `S2 - Electricity - kWh` for this tutorial. If you have different account style name or caption please update accordingly)
   - Account Style Link (Reference id for the account style `S2 - Electricity - kWh`)
   - Locations Names and Accounts Names (The locations names under which the accounts to be created)
 
@@ -245,24 +246,24 @@ The Envizi template file to be imported into the workflow as a reference data. P
 |-------------------------|----------------------|--------------------------|--------------------------|
 |Organization Link|17000252| The refernce id for the Envizi Organization. | Get it from prerequisites |
 |Organization|GSI Demos	| The name of the Organization.| Get it from prerequisites|
-|Location|IBMCloud| The name of location where the account exists/to be created. It will be updated by workflow based on project parameters|Nil|
+|Location|| The name of location mapped to Datacenter in Envizi . Updated by workflow based on project parameters|Make sure to check project parameters|
 |Location Ref| | |Nil|
-|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. |Get it from prerequisites|
-|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by workflow based on project parameters|Nil|
+|Account Style Link|14445| The refernce id for the `S2 - Electricity - kWh` account style. |Get it from prerequisites.Make sure to have Account Style Caption and it's corresponding Account Style Link|
+|Account Style Caption|S2 - Electricity - kWh| The account style of this account.  It will be updated by workflow based on project parameters| Make sure to have Account Style Caption and it's corresponding Account Style Link|
 |Account Subtype|Default| | Nil|
-|Account Number|vc01dc01-electricity| The account name. It will be updated by workflow based on project parameters | Nil|
+|Account Number|IBMCloud-electricity| The account name. Updated by workflow based on project parameters | Make sure to check project parameters|
 |Account Reference|| | Nil|
 |Account Supplier|| | Nil|
 |Account Reader|| | Nil|
-|Record Start YYYY-MM-DD|2024-01-01| It will be updated by workflow based on project parameters| Nil|
-|Record End YYYY-MM-DD|2024-12-31| It will be updated by workflow based on project parameters | Nil|
+|Record Start YYYY-MM-DD|2024-01-01| Updated by workflow based on project parameters| Make sure to check project parameters|
+|Record End YYYY-MM-DD|2024-12-31| Updated by workflow based on project parameters | Make sure to check project parameters|
 |Record Data Quality|Actual|  | Nil|
 |Record Billing Type|Standard|  | Nil|
 |Record Subtype|Default|  | Nil|
 |Record Entry Method|Overwrite| | Nil|
 |Record Reference|| | Nil|
 |Record Invoice Number|| | Nil|
-|Total Electricity (kWh)|883.799| Electricity consumption value. It will be updated by workflow based on turbonomic output | Nil|
+|Total Electricity (kWh)|883.799| Electricity consumption value. Updated by workflow based on turbonomic output | Nil|
 |Green Power (kWh)|| | Nil|
 |Total Cost|| | Nil|
 
@@ -403,9 +404,9 @@ You can view the status of the file in `Envizi -> Admin -> Data Flow Automation 
 The sample data received in S3 from Turbonomic is available [here](./files/sample/).
 </details>
 
-## 6. Schedule Workflow Execution
+## 6. (Optional) Schedule Workflow Execution
 
-The workflow can be scheduled for execution. Follow the steps below to define the schedule for workflow execution.
+If you would like to periodically retrieve the energy/electricity consumptions you can schedule the workflow by following the steps given below.  Also you may need to tweak the workflow to align start and end period parameters with the specified schedule. 
 
 <details><summary>CLICK me for detailed instructions</summary>
 
